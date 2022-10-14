@@ -29,11 +29,11 @@ Task 4 – Training for A&F Modelling and Software
 
 | Day One | Day Two |
 | ------- | ------- |
-| Digital Innovations Team and Strategy <br /> Next Generation Philosophy | Scripting in APSIM Next Generation <br> [Anatomy of a manager script](https://apsimnextgeneration.netlify.app/usage/writemanagerscript/) <br> [Manager tutorial - PDF](https://builds.apsim.info/api/nextgen/docs/Manager.pdf) ]|
+| Digital Innovations Team and Strategy <br /> Next Generation Philosophy <br /> [Lesson Plan](https://github.com/CSIRO-Digital-Innovations/Training/blob/main/lessonplans/APSIMNGPhilosophy.md) | Scripting in APSIM Next Generation <br> [Anatomy of a manager script](https://apsimnextgeneration.netlify.app/usage/writemanagerscript/) <br> [Manager tutorial - PDF](https://builds.apsim.info/api/nextgen/docs/Manager.pdf) ]|
 | *morning tea* | *morning tea* |
 | Introduction to Version Control <br /> 	[GitFork Client](https://git-fork.com/) <br /> 	[Git Tutorial](https://github.com/CSIRO-Digital-Innovations/Training/blob/main/documentation/Git%20Training.docx) <br /> [PowerPoint](https://github.com/CSIRO-Digital-Innovations/Training/blob/main/documentation/Git%20Training.pptx)| Playtime for Scripting  |
 | *lunch* | *lunch* |
-| Important elements of APSIM Next Generation  <br />	[Lesson Plan](https://github.com/CSIRO-Digital-Innovations/Training/blob/main/lessonplans/APSIMNGPhilosophy.md) 	<br /> [APSIM NG Download](https://www.apsim.info/download-apsim/) | Playtime for Observed Data |
+| Important elements of APSIM Next Generation  <br />	[Lesson Plan](https://github.com/CSIRO-Digital-Innovations/Training/blob/main/lessonplans/ImportantElementsofAPSIMNG.md) 	<br /> [APSIM NG Download](https://www.apsim.info/download-apsim/) | Playtime for Observed Data |
 | *afternoon tea* | |
 | Migration of simulations to APSIM Next Generation | |
 

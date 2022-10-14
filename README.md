@@ -31,9 +31,9 @@ Task 4 – Training for A&F Modelling and Software
 | ------- | ------- |
 | Digital Innovations Team and Strategy <br /> Next Generation Philosophy | Scripting in APSIM Next Generation |
 | *morning tea* | *morning tea* |
-| Introduction to Version Control | Playtime for Scripting |
+| Introduction to Version Control <br /> 	*[GitFork Client](https://git-fork.com/) | Playtime for Scripting |
 | *lunch* | *lunch* |
-| Important elements of APSIM Next Generation | Playtime for Observed Data |
+| Important elements of APSIM Next Generation <br /> 	* [APSIM NG Download](https://www.apsim.info/download-apsim/) | Playtime for Observed Data |
 | *afternoon tea* | |
 | Migration of simulations to APSIM Next Generation | |
 

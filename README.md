@@ -35,7 +35,7 @@ Task 4 – Training for A&F Modelling and Software
 | *lunch* | *lunch* |
 | Important elements of APSIM Next Generation  <br />	[Lesson Plan](https://github.com/CSIRO-Digital-Innovations/Training/blob/main/lessonplans/ImportantElementsofAPSIMNG.md) 	<br /> [APSIM NG Download](https://www.apsim.info/download-apsim/) | Playtime for scripting and observed data |
 | *afternoon tea* | |
-| Migration of simulations to APSIM Next Generation | Playtime|
+| Migration of simulations to APSIM Next Generation <br> [Example APSIM 7.10 files for migration](https://github.com/CSIRO-Digital-Innovations/Training/tree/main/resources)| Playtime|
 
 
 

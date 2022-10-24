@@ -29,7 +29,7 @@ Task 4 – Training for A&F Modelling and Software
 
 | Day One | Day Two |
 | ------- | ------- |
-| Digital Innovations Team and Strategy <br /> Next Generation Philosophy <br /> [Lesson Plan](https://github.com/CSIRO-Digital-Innovations/Training/blob/main/lessonplans/APSIMNGPhilosophy.md) | Scripting <br> [Anatomy of a manager script](https://apsimnextgeneration.netlify.app/usage/writemanagerscript/) <br> [Manager tutorial - PDF](https://builds.apsim.info/api/nextgen/docs/Manager.pdf)|
+| Digital Innovations Team and Strategy <br /> Next Generation Philosophy <br /> [Lesson Plan](https://github.com/CSIRO-Digital-Innovations/Training/blob/main/lessonplans/APSIMNGPhilosophy.md) | Scripting <br> [Anatomy of a manager script](https://apsimnextgeneration.netlify.app/usage/writemanagerscript/) <br> [Manager tutorial - PDF](https://builds.apsim.info/api/nextgen/docs/Manager.pdf) <br> [C# Language tutorial](https://www.w3schools.com/cs/index.php)|
 | *morning tea* | *morning tea* |
 | Introduction to Version Control <br /> 	[GitFork Client](https://git-fork.com/) <br /> 	[Git Tutorial](https://github.com/CSIRO-Digital-Innovations/Training/blob/main/documentation/Git%20Training.docx) <br /> [PowerPoint](https://github.com/CSIRO-Digital-Innovations/Training/blob/main/documentation/Git%20Training.pptx) | Observed Data <br/> [Observed data tutorial - PDF](https://builds.apsim.info/api/nextgen/docs/PredictedObserved.pdf)|
 | *lunch* | *lunch* |

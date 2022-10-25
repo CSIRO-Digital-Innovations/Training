@@ -1,0 +1,841 @@
+{
+  "$type": "Models.Core.Simulations, Models",
+  "ExplorerWidth": 285,
+  "Version": 156,
+  "Name": "Simulations",
+  "ResourceName": null,
+  "Children": [
+    {
+      "$type": "Models.Storage.DataStore, Models",
+      "useFirebird": false,
+      "CustomFileName": null,
+      "Name": "DataStore",
+      "ResourceName": null,
+      "Children": [],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.Core.Folder, Models",
+      "ShowInDocs": false,
+      "GraphsPerPage": 6,
+      "Name": "FSD2018",
+      "ResourceName": null,
+      "Children": [
+        {
+          "$type": "Models.Factorial.Experiment, Models",
+          "DisabledSimNames": null,
+          "Name": "FSD2018",
+          "ResourceName": null,
+          "Children": [
+            {
+              "$type": "Models.Factorial.Factors, Models",
+              "Name": "Factors",
+              "ResourceName": null,
+              "Children": [
+                {
+                  "$type": "Models.Factorial.Permutation, Models",
+                  "Name": "Permutation",
+                  "ResourceName": null,
+                  "Children": [
+                    {
+                      "$type": "Models.Factorial.Factor, Models",
+                      "Specification": "",
+                      "Name": "N",
+                      "ResourceName": null,
+                      "Children": [
+                        {
+                          "$type": "Models.Factorial.CompositeFactor, Models",
+                          "Specifications": [
+                            "[FertiliseWheat].Script.Amount=0"
+                          ],
+                          "Paths": null,
+                          "Values": null,
+                          "Name": "0",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Factorial.CompositeFactor, Models",
+                          "Specifications": [
+                            "[FertiliseWheat].Script.Amount=21.64"
+                          ],
+                          "Paths": null,
+                          "Values": null,
+                          "Name": "65",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Factorial.CompositeFactor, Models",
+                          "Specifications": [
+                            "[FertiliseWheat].Script.Amount=43.33"
+                          ],
+                          "Paths": null,
+                          "Values": null,
+                          "Name": "130",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Factorial.CompositeFactor, Models",
+                          "Specifications": [
+                            "[FertiliseWheat].Script.Amount=65"
+                          ],
+                          "Paths": null,
+                          "Values": null,
+                          "Name": "195",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        }
+                      ],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Factorial.Factor, Models",
+                      "Specification": "",
+                      "Name": "Sow",
+                      "ResourceName": null,
+                      "Children": [
+                        {
+                          "$type": "Models.Factorial.CompositeFactor, Models",
+                          "Specifications": [
+                            "[FertiliseWheat].Script.Dates=16-nov-2018, 07-dec-2018, 04-jan-2019",
+                            "[Irrigate on fixed dates].Script.Dates=07-dec-2018, 04-jan-2019, 06-feb-2019, 06-apr-2019"
+                          ],
+                          "Paths": null,
+                          "Values": null,
+                          "Name": "Nov16",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Factorial.CompositeFactor, Models",
+                          "Specifications": [
+                            "[FertiliseWheat].Script.Dates=14-dec-2018, 08-jan-2019, 04-feb-2019",
+                            "[Irrigate on fixed dates].Script.Dates=08-jan-2018, 04-feb-2019, 02-mar-2019, 06-apr-2019"
+                          ],
+                          "Paths": null,
+                          "Values": null,
+                          "Name": "Dec14",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        }
+                      ],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    }
+                  ],
+                  "Enabled": true,
+                  "ReadOnly": false
+                }
+              ],
+              "Enabled": true,
+              "ReadOnly": false
+            },
+            {
+              "$type": "Models.Core.Simulation, Models",
+              "Descriptors": null,
+              "Name": "FSD2018Base",
+              "ResourceName": null,
+              "Children": [
+                {
+                  "$type": "Models.Climate.Weather, Models",
+                  "ConstantsFile": null,
+                  "FileName": "FSD_Climate_2018-22.met",
+                  "ExcelWorkSheetName": "",
+                  "Name": "Weather",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Manager, Models",
+                  "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    [System.Xml.Serialization.XmlInclude(typeof(Model))]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n\r\n        [Description(\"Enter window START date (dd-mmm) : \")]\r\n        public string date1 { get; set; }\r\n\r\n        [Description(\"Enter window END date (dd-mmm) : \")]\r\n        public string date2 { get; set; }\r\n\r\n        [Description(\"Change in maximum temperature (oC):\")]\r\n        public string MaxtChange { get; set; }\r\n\r\n        [Description(\"Change in minimum temperature (oC):\")]\r\n        public string MintChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily rainfall (%):\")]\r\n        public string RainChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily radiation (%):\")]\r\n        public string RadnChange { get; set; }\r\n\r\n        [Description(\"Atmospheric CO2 Concentration (ppm)\")]\r\n        public string CO2 { get; set; }\r\n\r\n        [EventSubscribe(\"StartOfSimulation\")]\r\n        private void OnSimulationCommencing(object sender, EventArgs e)\r\n        {\r\n            /*\r\n                co2 = [CO2]\r\ntav = tav + ([MaxtChange] + [MintChange]) / 2\r\n            \r\n            */\r\n        }\r\n    }\r\n}\r\n",
+                  "Parameters": [
+                    {
+                      "Key": "date1",
+                      "Value": "1-jan"
+                    },
+                    {
+                      "Key": "date2",
+                      "Value": "31-dec"
+                    },
+                    {
+                      "Key": "MaxtChange",
+                      "Value": "0"
+                    },
+                    {
+                      "Key": "MintChange",
+                      "Value": "0"
+                    },
+                    {
+                      "Key": "RainChange",
+                      "Value": "0"
+                    },
+                    {
+                      "Key": "RadnChange",
+                      "Value": "0"
+                    },
+                    {
+                      "Key": "CO2",
+                      "Value": "411"
+                    }
+                  ],
+                  "Name": "ClimateControl_2019",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Manager, Models",
+                  "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    [System.Xml.Serialization.XmlInclude(typeof(Model))]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n\r\n        [Description(\"Enter window START date (dd-mmm) : \")]\r\n        public string date1 { get; set; }\r\n\r\n        [Description(\"Enter window END date (dd-mmm) : \")]\r\n        public string date2 { get; set; }\r\n\r\n        [Description(\"Change in maximum temperature (oC):\")]\r\n        public string MaxtChange { get; set; }\r\n\r\n        [Description(\"Change in minimum temperature (oC):\")]\r\n        public string MintChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily rainfall (%):\")]\r\n        public string RainChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily radiation (%):\")]\r\n        public string RadnChange { get; set; }\r\n\r\n        [Description(\"Atmospheric CO2 Concentration (ppm)\")]\r\n        public string CO2 { get; set; }\r\n\r\n        [EventSubscribe(\"StartOfSimulation\")]\r\n        private void OnSimulationCommencing(object sender, EventArgs e)\r\n        {\r\n            /*\r\n                co2 = [CO2]\r\ntav = tav + ([MaxtChange] + [MintChange]) / 2\r\n            \r\n            */\r\n        }\r\n    }\r\n}\r\n",
+                  "Parameters": [
+                    {
+                      "Key": "date1",
+                      "Value": "01-nov"
+                    },
+                    {
+                      "Key": "date2",
+                      "Value": "31-jan"
+                    },
+                    {
+                      "Key": "MaxtChange",
+                      "Value": "0"
+                    },
+                    {
+                      "Key": "MintChange",
+                      "Value": "0"
+                    },
+                    {
+                      "Key": "RainChange",
+                      "Value": "0"
+                    },
+                    {
+                      "Key": "RadnChange",
+                      "Value": "10"
+                    },
+                    {
+                      "Key": "CO2",
+                      "Value": "411"
+                    }
+                  ],
+                  "Name": "ClimateControl_winter_rad_incr_19",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Clock, Models",
+                  "Start": "2018-11-16T00:00:00",
+                  "End": "2019-04-30T00:00:00",
+                  "Name": "Clock",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Summary, Models",
+                  "Verbosity": 100,
+                  "Name": "summaryfile",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.MicroClimate, Models",
+                  "a_interception": 0.0,
+                  "b_interception": 1.0,
+                  "c_interception": 0.0,
+                  "d_interception": 0.0,
+                  "SoilHeatFluxFraction": 0.0,
+                  "MinimumHeightDiffForNewLayer": 0.0,
+                  "NightInterceptionFraction": 0.0,
+                  "ReferenceHeight": 2.0,
+                  "Name": "MicroClimate",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Soils.Arbitrator.SoilArbitrator, Models",
+                  "Name": "SoilArbitrator",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Core.Zone, Models",
+                  "Area": 1.0,
+                  "Slope": 0.0,
+                  "AspectAngle": 0.0,
+                  "Altitude": 50.0,
+                  "Name": "paddock",
+                  "ResourceName": null,
+                  "Children": [
+                    {
+                      "$type": "Models.Soils.Soil, Models",
+                      "RecordNumber": 0,
+                      "ASCOrder": null,
+                      "ASCSubOrder": null,
+                      "SoilType": "Lyallpur",
+                      "LocalName": null,
+                      "Site": "Faisalabad",
+                      "NearestTown": "Sheikhupura",
+                      "Region": "Punjab",
+                      "State": null,
+                      "Country": "Pakistan",
+                      "NaturalVegetation": null,
+                      "ApsoilNumber": null,
+                      "Latitude": 31.25,
+                      "Longitude": 73.06,
+                      "LocationAccuracy": null,
+                      "YearOfSampling": null,
+                      "DataSource": null,
+                      "Comments": null,
+                      "Name": "Lyllpur Series",
+                      "ResourceName": null,
+                      "Children": [
+                        {
+                          "$type": "Models.Soils.Physical, Models",
+                          "Thickness": [
+                            150.0,
+                            770.0,
+                            350.0,
+                            250.0
+                          ],
+                          "ParticleSizeClay": null,
+                          "ParticleSizeSand": null,
+                          "ParticleSizeSilt": null,
+                          "Rocks": null,
+                          "Texture": null,
+                          "BD": [
+                            1.5,
+                            1.51,
+                            1.51,
+                            1.53
+                          ],
+                          "AirDry": [
+                            0.066,
+                            0.12,
+                            0.12,
+                            0.121
+                          ],
+                          "LL15": [
+                            0.185,
+                            0.162,
+                            0.145,
+                            0.133
+                          ],
+                          "DUL": [
+                            0.294,
+                            0.293,
+                            0.293,
+                            0.313
+                          ],
+                          "SAT": [
+                            0.422,
+                            0.414,
+                            0.409,
+                            0.423
+                          ],
+                          "KS": null,
+                          "BDMetadata": null,
+                          "AirDryMetadata": null,
+                          "LL15Metadata": null,
+                          "DULMetadata": null,
+                          "SATMetadata": null,
+                          "KSMetadata": null,
+                          "RocksMetadata": null,
+                          "TextureMetadata": null,
+                          "ParticleSizeSandMetadata": null,
+                          "ParticleSizeSiltMetadata": null,
+                          "ParticleSizeClayMetadata": null,
+                          "Name": "Physical",
+                          "ResourceName": null,
+                          "Children": [
+                            {
+                              "$type": "Models.Soils.SoilCrop, Models",
+                              "LL": [
+                                0.185,
+                                0.162,
+                                0.145,
+                                0.133
+                              ],
+                              "KL": [
+                                0.1,
+                                0.1,
+                                0.08,
+                                0.06
+                              ],
+                              "XF": [
+                                1.0,
+                                1.0,
+                                1.0,
+                                1.0
+                              ],
+                              "LLMetadata": null,
+                              "KLMetadata": null,
+                              "XFMetadata": null,
+                              "Name": "WheatSoil",
+                              "ResourceName": null,
+                              "Children": [],
+                              "Enabled": true,
+                              "ReadOnly": false
+                            }
+                          ],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.WaterModel.WaterBalance, Models",
+                          "SummerDate": "1-Apr",
+                          "SummerU": 3.2,
+                          "SummerCona": 6.0,
+                          "WinterDate": "1-Dec",
+                          "WinterU": 3.5,
+                          "WinterCona": 6.0,
+                          "DiffusConst": 40.0,
+                          "DiffusSlope": 16.0,
+                          "Salb": 0.13,
+                          "CN2Bare": 61.0,
+                          "CNRed": 20.0,
+                          "CNCov": 0.8,
+                          "DischargeWidth": "NaN",
+                          "CatchmentArea": "NaN",
+                          "PSIDul": -100.0,
+                          "Thickness": [
+                            150.0,
+                            770.0,
+                            350.0,
+                            250.0
+                          ],
+                          "SWCON": [
+                            0.3,
+                            0.2,
+                            0.2,
+                            0.2
+                          ],
+                          "KLAT": null,
+                          "Name": "SoilWater",
+                          "ResourceName": "WaterBalance",
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Soils.CERESSoilTemperature, Models",
+                          "Name": "Temperature",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Soils.Solute, Models",
+                          "Thickness": [
+                            150.0,
+                            770.0,
+                            350.0,
+                            250.0
+                          ],
+                          "InitialValues": [
+                            12.745,
+                            28.72,
+                            4.62,
+                            1.255
+                          ],
+                          "InitialValuesUnits": 0,
+                          "WaterTableConcentration": 0.0,
+                          "D0": 0.0,
+                          "Exco": null,
+                          "FIP": null,
+                          "DepthConstant": 0.0,
+                          "MaxDepthSoluteAccessible": 0.0,
+                          "RunoffEffectivenessAtMovingSolute": 0.0,
+                          "MaxEffectiveRunoff": 0.0,
+                          "Name": "NO3",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Soils.Solute, Models",
+                          "Thickness": [
+                            150.0,
+                            770.0,
+                            350.0,
+                            250.0
+                          ],
+                          "InitialValues": [
+                            4.0,
+                            3.0,
+                            1.0,
+                            1.0
+                          ],
+                          "InitialValuesUnits": 0,
+                          "WaterTableConcentration": 0.0,
+                          "D0": 0.0,
+                          "Exco": null,
+                          "FIP": null,
+                          "DepthConstant": 0.0,
+                          "MaxDepthSoluteAccessible": 0.0,
+                          "RunoffEffectivenessAtMovingSolute": 0.0,
+                          "MaxEffectiveRunoff": 0.0,
+                          "Name": "NH4",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Soils.Solute, Models",
+                          "Thickness": [
+                            150.0,
+                            770.0,
+                            350.0,
+                            250.0
+                          ],
+                          "InitialValues": [
+                            0.0,
+                            0.0,
+                            0.0,
+                            0.0
+                          ],
+                          "InitialValuesUnits": 1,
+                          "WaterTableConcentration": 0.0,
+                          "D0": 0.0,
+                          "Exco": null,
+                          "FIP": null,
+                          "DepthConstant": 0.0,
+                          "MaxDepthSoluteAccessible": 0.0,
+                          "RunoffEffectivenessAtMovingSolute": 0.0,
+                          "MaxEffectiveRunoff": 0.0,
+                          "Name": "UREA",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Soils.Organic, Models",
+                          "FOMCNRatio": 40.0,
+                          "Thickness": [
+                            150.0,
+                            770.0,
+                            350.0,
+                            250.0
+                          ],
+                          "Carbon": [
+                            1.44,
+                            0.91,
+                            0.309,
+                            0.15
+                          ],
+                          "CarbonUnits": 0,
+                          "SoilCNRatio": [
+                            12.5,
+                            12.5,
+                            12.5,
+                            12.5
+                          ],
+                          "FBiom": [
+                            0.05,
+                            0.055,
+                            0.035,
+                            0.01
+                          ],
+                          "FInert": [
+                            0.5,
+                            0.65,
+                            1.0,
+                            1.0
+                          ],
+                          "FOM": [
+                            716.664,
+                            156.784,
+                            78.577,
+                            47.974
+                          ],
+                          "CarbonMetadata": null,
+                          "FOMMetadata": null,
+                          "Name": "Organic",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Soils.Water, Models",
+                          "Thickness": [
+                            150.0,
+                            770.0,
+                            350.0,
+                            250.0
+                          ],
+                          "InitialValues": [
+                            0.294,
+                            0.293,
+                            0.293,
+                            0.227
+                          ],
+                          "RelativeTo": "LL15",
+                          "FilledFromTop": true,
+                          "Name": "Water",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Soils.Chemical, Models",
+                          "Thickness": [
+                            150.0,
+                            770.0,
+                            350.0,
+                            250.0
+                          ],
+                          "PH": [
+                            7.8,
+                            7.9,
+                            8.0,
+                            8.0
+                          ],
+                          "PHUnits": 0,
+                          "EC": null,
+                          "ESP": null,
+                          "ECMetadata": null,
+                          "CLMetadata": null,
+                          "ESPMetadata": null,
+                          "PHMetadata": null,
+                          "Name": "Chemical",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Soils.Nutrients.Nutrient, Models",
+                          "Name": "Nutrient",
+                          "ResourceName": "Nutrient",
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        }
+                      ],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Surface.SurfaceOrganicMatter, Models",
+                      "SurfOM": [],
+                      "Canopies": [],
+                      "InitialResidueName": "wheat",
+                      "InitialResidueType": "wheat",
+                      "InitialResidueMass": 1000.0,
+                      "InitialStandingFraction": 0.0,
+                      "InitialCPR": 0.0,
+                      "InitialCNR": 80.0,
+                      "Name": "SurfaceOrganicMatter",
+                      "ResourceName": "SurfaceOrganicMatter",
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Fertiliser, Models",
+                      "Name": "Fertiliser",
+                      "ResourceName": "Fertiliser",
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Irrigation, Models",
+                      "Name": "Irrigation",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.PMF.Plant, Models",
+                      "Name": "wheat",
+                      "ResourceName": "Wheat",
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Report, Models",
+                      "VariableNames": [
+                        "no3()"
+                      ],
+                      "EventNames": [
+                        "[Clock].DoReport"
+                      ],
+                      "GroupByVariableName": null,
+                      "Name": "outputfile",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Manager, Models",
+                      "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    [System.Xml.Serialization.XmlInclude(typeof(Model))]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n\r\n        [Description(\"Enter sowing date (dd-mmm) : \")]\r\n        public string date { get; set; }\r\n\r\n        [Description(\"Enter name of crop to sow : \")]\r\n        public string crop { get; set; }\r\n\r\n        [Description(\"Enter sowing density  (plants/m2) : \")]\r\n        public string density { get; set; }\r\n\r\n        [Description(\"Enter sowing depth  (mm) : \")]\r\n        public string depth { get; set; }\r\n\r\n        [Description(\"Enter cultivar : \")]\r\n        [Display(Type = DisplayType.CultivarName)]\r\n        public string cultivar { get; set; }\r\n\r\n        [Description(\"Enter crop growth class : \")]\r\n        public string _class { get; set; }\r\n\r\n        [Description(\"Enter row spacing (mm) : \")]\r\n        public string row_spacing { get; set; }\r\n\r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            /*\r\n                \r\n        if (today = date('[date]') then\r\n              [crop] sow plants =[density], sowing_depth = [depth], cultivar = [cultivar], row_spacing = [row_spacing], crop_class = [class]\r\n         endif\r\n               \r\n            */\r\n        }\r\n    }\r\n}\r\n",
+                      "Parameters": [
+                        {
+                          "Key": "date",
+                          "Value": "16-nov; 14-dec"
+                        },
+                        {
+                          "Key": "crop",
+                          "Value": "wheat"
+                        },
+                        {
+                          "Key": "density",
+                          "Value": "450"
+                        },
+                        {
+                          "Key": "depth",
+                          "Value": "35"
+                        },
+                        {
+                          "Key": "cultivar",
+                          "Value": "Whistler"
+                        },
+                        {
+                          "Key": "_class",
+                          "Value": "plant"
+                        },
+                        {
+                          "Key": "row_spacing",
+                          "Value": "250"
+                        }
+                      ],
+                      "Name": "Sow on a fixed date",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Manager, Models",
+                      "Code": "using Models.Interfaces;\r\nusing System.Linq;\r\nusing APSIM.Shared.Utilities;\r\nusing Models.PMF;\r\nusing Models.Soils;\r\nusing Models.Core;\r\nusing System;\r\nusing Models.Soils.Nutrients;\r\n\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    public class Script : Model\r\n    {\r\n        [Link] private Clock clock;\r\n        [Link] private Fertiliser fertiliser;\r\n        [Link] private ISummary summary;\r\n        [Link] private Soil soil;\r\n        private Nutrient nutrient;\r\n        private SoilNitrogen soilN;\r\n        [Link]\r\n        private IPhysical soilPhysical;\r\n\r\n\r\n        [Separator(\"Fertiliser will be applied on the date(s) below\")]\r\n        [Description(\"Apply fertiliser on the same day(s) each year? If no, then must include the year of appliaction below\")]\r\n        public bool EachYear { get; set; }\r\n\r\n        [Description(\"Dates for one or more fertiliser applications (dd-mmm or dd-mmm-yyyy) as a list with a comma between dates\")]\r\n        public string[] Dates { get; set; }\r\n\r\n        [Separator(\"Test for the mineral N in the soil and don't apply the fertiliser if greater than X kgN/ha is stored in the soil above a depth of Y mm\")]\r\n        [Description(\"Use a critical soil mineral N to prevent application above a threshold?\")]\r\n        public bool UseCritNThreshold { get; set; }\r\n\r\n        [Description(\"Don't add fertiliser if N in the soil to the depth below exceeds (kg/ha)\")]\r\n        public double CritNThreshold { get; set; }\r\n\r\n        [Description(\"Depth to which the amount of N in the soil should be calculated (mm)\")]\r\n        public double CritNDepth { get; set; }\r\n\r\n        [Separator(\"Fertiliser application details\")]\r\n        [Description(\"Depth at which to apply the fertiliser (mm)\")]\r\n        public double Depth { get; set; }\r\n\r\n        [Description(\"Amount of fertiliser to apply (kg N /ha) per application\")]\r\n        public double Amount { get; set; }\r\n\r\n        [Description(\"Fertiliser type - select from the list\")]\r\n        public Fertiliser.Types FertiliserType { get; set; }\r\n\r\n\r\n        [EventSubscribe(\"StartOfSimulation\")]\r\n        private void FindSoilNOrNutrient(object sender, EventArgs e)\r\n        {\r\n            nutrient = this.FindInScope<Nutrient>() as Nutrient;\r\n            soilN = this.FindInScope<SoilNitrogen>() as SoilNitrogen;\r\n\r\n            if (nutrient == null && soilN == null)\r\n                throw new Exception(string.Format(\"Error in script {0}: Unable to find nutrient or soilN.\", Name));\r\n        }\r\n\r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            if (OnApplicationDate())\r\n            {\r\n                if (NContentBelowThreshold())\r\n                    fertiliser.Apply(Amount, FertiliserType, Depth);\r\n                else\r\n                    summary.WriteMessage(this, \"Skipping fertiliser application due to soil mineral N content being above critical threshold.\", MessageType.Diagnostic);\r\n            }\r\n        }\r\n\r\n        /// <summary>Checks if today's date is one of the specified fertiliser application dates.</summary>\r\n        private bool OnApplicationDate()\r\n        {\r\n            if (EachYear)\r\n                return Dates.Any(d => DateUtilities.DatesEqual(d, clock.Today));\r\n            \r\n            DateTime[] dates = Dates.Select(d => DateTime.ParseExact(d, \"d-MMM-yyyy\", null)).ToArray();\r\n            return dates.Any(d => SameDate(d, clock.Today));\r\n        }\r\n\r\n        /// <summary>Checks if N content in soil is below critical threshold.</summary>\r\n        private bool NContentBelowThreshold()\r\n        {\r\n            if (!UseCritNThreshold)\r\n                return true;\r\n            \r\n            double[] weights = GetLayerWeights();\r\n            double cumSoilN = 0;\r\n\r\n            for (int i = 0; i < soilPhysical.Thickness.Length; i++)\r\n            {\r\n                if (nutrient != null)\r\n                    cumSoilN += weights[i] * nutrient.MineralN[i];\r\n                else if (soilN != null)\r\n                    cumSoilN += weights[i] * soilN.mineral_n[i];\r\n            }\r\n\r\n            return cumSoilN <= CritNThreshold;\r\n        }\r\n\r\n        private double[] GetLayerWeights()\r\n        {\r\n            double[] weights = new double[soilPhysical.Thickness.Length];\r\n            double cumDepth = 0;\r\n\r\n            for (int i = 0; i < soilPhysical.Thickness.Length; i++)\r\n            {\r\n                cumDepth += soilPhysical.Thickness[i];\r\n                if (cumDepth < CritNDepth)\r\n                    weights[i] = 1;\r\n                else if (cumDepth - soilPhysical.Thickness[i] <= CritNDepth)\r\n                    weights[i] = (CritNDepth - (cumDepth - soilPhysical.Thickness[i])) / soilPhysical.Thickness[i];\r\n                else\r\n                    weights[i] = 0;\r\n            }\r\n\r\n            return weights;\r\n        }\r\n\r\n        private bool SameDate(DateTime d1, DateTime d2)\r\n        {\r\n            return d1.Year == d2.Year && d1.DayOfYear == d2.DayOfYear;\r\n        }\r\n    }\r\n}\r\n",
+                      "Parameters": [
+                        {
+                          "Key": "EachYear",
+                          "Value": "False"
+                        },
+                        {
+                          "Key": "Dates",
+                          "Value": "16-nov-2018, 07-dec-2018, 04-jan-2019"
+                        },
+                        {
+                          "Key": "UseCritNThreshold",
+                          "Value": "False"
+                        },
+                        {
+                          "Key": "CritNThreshold",
+                          "Value": "3000"
+                        },
+                        {
+                          "Key": "CritNDepth",
+                          "Value": "50"
+                        },
+                        {
+                          "Key": "Depth",
+                          "Value": "0"
+                        },
+                        {
+                          "Key": "Amount",
+                          "Value": "46"
+                        },
+                        {
+                          "Key": "FertiliserType",
+                          "Value": "UreaN"
+                        }
+                      ],
+                      "Name": "FertiliseWheat",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Manager, Models",
+                      "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nusing APSIM.Shared.Utilities;\r\nusing System.Linq;\r\nusing Models.Interfaces;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock clock;\r\n        [Link] Irrigation Irrigation;\r\n        \r\n        [Separator(\"A component to apply irrigation on one or more dates on every year of the simulation\")]\r\n\r\n        [Description(\"Apply fertiliser on the same day(s) each year? If no, then must include the year of appliaction below\")]\r\n        public bool EachYear { get; set; }\r\n\r\n        [Description(\"Dates for one or more fertiliser applications (dd-mmm or dd-mmm-yyyy) as a list with a comma between dates\")]\r\n        public string[] Dates { get; set; }\r\n\r\n        \r\n        [Description(\"Amount of irrigation to be applied (mm)\")] \r\n        public double Amount { get; set; }\r\n        \r\n        [Description(\"Depth in the soil to apply the  irrigation (mm)\")] \r\n        public double Depth { get; set; }\r\n        \r\n        [Description(\"Efficiency of irrigation (0-1)\")] \r\n        public double Efficiency { get; set; }\r\n        \r\n        [Description(\"Will the irrigation runoff?\")] \r\n        public bool WillRunoff { get; set; }\r\n        \r\n\r\n\r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            if (OnApplicationDate())\r\n            {\r\n                Irrigation.Apply(amount: Amount, depth: Depth, efficiency: Efficiency, willRunoff: WillRunoff);\r\n               \r\n            }\r\n        }\r\n\r\n        /// <summary>Checks if today's date is one of the specified fertiliser application dates.</summary>\r\n        private bool OnApplicationDate()\r\n        {\r\n            if (EachYear)\r\n                return Dates.Any(d => DateUtilities.DatesEqual(d, clock.Today));\r\n            \r\n            DateTime[] dates = Dates.Select(d => DateTime.ParseExact(d, \"d-MMM-yyyy\", null)).ToArray();\r\n            return dates.Any(d => SameDate(d, clock.Today));\r\n        }\r\n                private bool SameDate(DateTime d1, DateTime d2)\r\n        {\r\n            return d1.Year == d2.Year && d1.DayOfYear == d2.DayOfYear;\r\n        }\r\n        }\r\n        }\r\n        \r\n",
+                      "Parameters": [
+                        {
+                          "Key": "EachYear",
+                          "Value": "False"
+                        },
+                        {
+                          "Key": "Dates",
+                          "Value": "07-dec-2018, 04-jan-2019, 06-feb-2019, 06-apr-2019"
+                        },
+                        {
+                          "Key": "Amount",
+                          "Value": "108"
+                        },
+                        {
+                          "Key": "Depth",
+                          "Value": "0"
+                        },
+                        {
+                          "Key": "Efficiency",
+                          "Value": "1"
+                        },
+                        {
+                          "Key": "WillRunoff",
+                          "Value": "False"
+                        }
+                      ],
+                      "Name": "Irrigate on fixed dates",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    }
+                  ],
+                  "Enabled": true,
+                  "ReadOnly": false
+                }
+              ],
+              "Enabled": true,
+              "ReadOnly": false
+            }
+          ],
+          "Enabled": true,
+          "ReadOnly": false
+        }
+      ],
+      "Enabled": true,
+      "ReadOnly": false
+    }
+  ],
+  "Enabled": true,
+  "ReadOnly": false
+}

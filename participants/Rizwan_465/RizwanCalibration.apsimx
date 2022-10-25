@@ -109,6 +109,7 @@
                         {
                           "$type": "Models.Factorial.CompositeFactor, Models",
                           "Specifications": [
+                            "[SowingRule].Script.SowDate=16-nov",
                             "[FertiliseWheat].Script.Dates=16-nov-2018, 07-dec-2018, 04-jan-2019",
                             "[Irrigate on fixed dates].Script.Dates=07-dec-2018, 04-jan-2019, 06-feb-2019, 06-apr-2019"
                           ],
@@ -123,6 +124,7 @@
                         {
                           "$type": "Models.Factorial.CompositeFactor, Models",
                           "Specifications": [
+                            "[SowingRule].Script.SowDate=14-Dec",
                             "[FertiliseWheat].Script.Dates=14-dec-2018, 08-jan-2019, 04-feb-2019",
                             "[Irrigate on fixed dates].Script.Dates=08-jan-2018, 04-feb-2019, 02-mar-2019, 06-apr-2019"
                           ],
@@ -152,6 +154,16 @@
               "Name": "FSD2018Base",
               "ResourceName": null,
               "Children": [
+                {
+                  "$type": "Models.Clock, Models",
+                  "Start": "2018-11-16T00:00:00",
+                  "End": "2019-04-30T00:00:00",
+                  "Name": "Clock",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
                 {
                   "$type": "Models.Climate.Weather, Models",
                   "ConstantsFile": null,
@@ -242,16 +254,6 @@
                   "ReadOnly": false
                 },
                 {
-                  "$type": "Models.Clock, Models",
-                  "Start": "2018-11-16T00:00:00",
-                  "End": "2019-04-30T00:00:00",
-                  "Name": "Clock",
-                  "ResourceName": null,
-                  "Children": [],
-                  "Enabled": true,
-                  "ReadOnly": false
-                },
-                {
                   "$type": "Models.Summary, Models",
                   "Verbosity": 100,
                   "Name": "summaryfile",
@@ -293,6 +295,15 @@
                   "Name": "paddock",
                   "ResourceName": null,
                   "Children": [
+                    {
+                      "$type": "Models.Memo, Models",
+                      "Text": "I changed your soil evaporation parameters.  You will need to reset you soil to your original values",
+                      "Name": "READ THIS",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
                     {
                       "$type": "Models.Soils.Soil, Models",
                       "RecordNumber": 0,
@@ -410,12 +421,12 @@
                         {
                           "$type": "Models.WaterModel.WaterBalance, Models",
                           "SummerDate": "1-Apr",
-                          "SummerU": 3.2,
-                          "SummerCona": 6.0,
+                          "SummerU": 6.0,
+                          "SummerCona": 3.6,
                           "WinterDate": "1-Dec",
-                          "WinterU": 3.5,
-                          "WinterCona": 6.0,
-                          "DiffusConst": 40.0,
+                          "WinterU": 6.0,
+                          "WinterCona": 3.5,
+                          "DiffusConst": 88.0,
                           "DiffusSlope": 16.0,
                           "Salb": 0.13,
                           "CN2Bare": 61.0,
@@ -642,6 +653,23 @@
                           "Children": [],
                           "Enabled": true,
                           "ReadOnly": false
+                        },
+                        {
+                          "$type": "Models.Soils.LayerStructure, Models",
+                          "Thickness": [
+                            100.0,
+                            100.0,
+                            100.0,
+                            300.0,
+                            300.0,
+                            300.0,
+                            300.0
+                          ],
+                          "Name": "LayerStructure",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
                         }
                       ],
                       "Enabled": true,
@@ -681,7 +709,7 @@
                     },
                     {
                       "$type": "Models.PMF.Plant, Models",
-                      "Name": "wheat",
+                      "Name": "Wheat",
                       "ResourceName": "Wheat",
                       "Children": [],
                       "Enabled": true,
@@ -690,52 +718,24 @@
                     {
                       "$type": "Models.Report, Models",
                       "VariableNames": [
-                        "no3()"
+                        "[Clock].Today",
+                        "sum([NO3].kgha) as TotalNO3",
+                        "[Wheat].Leaf.LAI",
+                        "[Wheat].AboveGround.Wt",
+                        "[Wheat].AboveGround.N",
+                        "[Wheat].Grain.Wt",
+                        "[Wheat].Root.Depth",
+                        "[Soil].Water.Volumetric[1]",
+                        "[Soil].Physical.LL15[1]",
+                        "[Soil].SoilWater.Es",
+                        "[Weather].Rain",
+                        "[Irrigation].IrrigationApplied"
                       ],
                       "EventNames": [
                         "[Clock].DoReport"
                       ],
                       "GroupByVariableName": null,
-                      "Name": "outputfile",
-                      "ResourceName": null,
-                      "Children": [],
-                      "Enabled": true,
-                      "ReadOnly": false
-                    },
-                    {
-                      "$type": "Models.Manager, Models",
-                      "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    [System.Xml.Serialization.XmlInclude(typeof(Model))]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n\r\n        [Description(\"Enter sowing date (dd-mmm) : \")]\r\n        public string date { get; set; }\r\n\r\n        [Description(\"Enter name of crop to sow : \")]\r\n        public string crop { get; set; }\r\n\r\n        [Description(\"Enter sowing density  (plants/m2) : \")]\r\n        public string density { get; set; }\r\n\r\n        [Description(\"Enter sowing depth  (mm) : \")]\r\n        public string depth { get; set; }\r\n\r\n        [Description(\"Enter cultivar : \")]\r\n        [Display(Type = DisplayType.CultivarName)]\r\n        public string cultivar { get; set; }\r\n\r\n        [Description(\"Enter crop growth class : \")]\r\n        public string _class { get; set; }\r\n\r\n        [Description(\"Enter row spacing (mm) : \")]\r\n        public string row_spacing { get; set; }\r\n\r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            /*\r\n                \r\n        if (today = date('[date]') then\r\n              [crop] sow plants =[density], sowing_depth = [depth], cultivar = [cultivar], row_spacing = [row_spacing], crop_class = [class]\r\n         endif\r\n               \r\n            */\r\n        }\r\n    }\r\n}\r\n",
-                      "Parameters": [
-                        {
-                          "Key": "date",
-                          "Value": "16-nov; 14-dec"
-                        },
-                        {
-                          "Key": "crop",
-                          "Value": "wheat"
-                        },
-                        {
-                          "Key": "density",
-                          "Value": "450"
-                        },
-                        {
-                          "Key": "depth",
-                          "Value": "35"
-                        },
-                        {
-                          "Key": "cultivar",
-                          "Value": "Whistler"
-                        },
-                        {
-                          "Key": "_class",
-                          "Value": "plant"
-                        },
-                        {
-                          "Key": "row_spacing",
-                          "Value": "250"
-                        }
-                      ],
-                      "Name": "Sow on a fixed date",
+                      "Name": "Report",
                       "ResourceName": null,
                       "Children": [],
                       "Enabled": true,
@@ -746,12 +746,16 @@
                       "Code": "using Models.Interfaces;\r\nusing System.Linq;\r\nusing APSIM.Shared.Utilities;\r\nusing Models.PMF;\r\nusing Models.Soils;\r\nusing Models.Core;\r\nusing System;\r\nusing Models.Soils.Nutrients;\r\n\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    public class Script : Model\r\n    {\r\n        [Link] private Clock clock;\r\n        [Link] private Fertiliser fertiliser;\r\n        [Link] private ISummary summary;\r\n        [Link] private Soil soil;\r\n        private Nutrient nutrient;\r\n        private SoilNitrogen soilN;\r\n        [Link]\r\n        private IPhysical soilPhysical;\r\n\r\n\r\n        [Separator(\"Fertiliser will be applied on the date(s) below\")]\r\n        [Description(\"Apply fertiliser on the same day(s) each year? If no, then must include the year of appliaction below\")]\r\n        public bool EachYear { get; set; }\r\n\r\n        [Description(\"Dates for one or more fertiliser applications (dd-mmm or dd-mmm-yyyy) as a list with a comma between dates\")]\r\n        public string[] Dates { get; set; }\r\n\r\n        [Separator(\"Test for the mineral N in the soil and don't apply the fertiliser if greater than X kgN/ha is stored in the soil above a depth of Y mm\")]\r\n        [Description(\"Use a critical soil mineral N to prevent application above a threshold?\")]\r\n        public bool UseCritNThreshold { get; set; }\r\n\r\n        [Description(\"Don't add fertiliser if N in the soil to the depth below exceeds (kg/ha)\")]\r\n        public double CritNThreshold { get; set; }\r\n\r\n        [Description(\"Depth to which the amount of N in the soil should be calculated (mm)\")]\r\n        public double CritNDepth { get; set; }\r\n\r\n        [Separator(\"Fertiliser application details\")]\r\n        [Description(\"Depth at which to apply the fertiliser (mm)\")]\r\n        public double Depth { get; set; }\r\n\r\n        [Description(\"Amount of fertiliser to apply (kg N /ha) per application\")]\r\n        public double Amount { get; set; }\r\n\r\n        [Description(\"Fertiliser type - select from the list\")]\r\n        public Fertiliser.Types FertiliserType { get; set; }\r\n\r\n\r\n        [EventSubscribe(\"StartOfSimulation\")]\r\n        private void FindSoilNOrNutrient(object sender, EventArgs e)\r\n        {\r\n            nutrient = this.FindInScope<Nutrient>() as Nutrient;\r\n            soilN = this.FindInScope<SoilNitrogen>() as SoilNitrogen;\r\n\r\n            if (nutrient == null && soilN == null)\r\n                throw new Exception(string.Format(\"Error in script {0}: Unable to find nutrient or soilN.\", Name));\r\n        }\r\n\r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            if (OnApplicationDate())\r\n            {\r\n                if (NContentBelowThreshold())\r\n                    fertiliser.Apply(Amount, FertiliserType, Depth);\r\n                else\r\n                    summary.WriteMessage(this, \"Skipping fertiliser application due to soil mineral N content being above critical threshold.\", MessageType.Diagnostic);\r\n            }\r\n        }\r\n\r\n        /// <summary>Checks if today's date is one of the specified fertiliser application dates.</summary>\r\n        private bool OnApplicationDate()\r\n        {\r\n            if (EachYear)\r\n                return Dates.Any(d => DateUtilities.DatesEqual(d, clock.Today));\r\n            \r\n            DateTime[] dates = Dates.Select(d => DateTime.ParseExact(d, \"d-MMM-yyyy\", null)).ToArray();\r\n            return dates.Any(d => SameDate(d, clock.Today));\r\n        }\r\n\r\n        /// <summary>Checks if N content in soil is below critical threshold.</summary>\r\n        private bool NContentBelowThreshold()\r\n        {\r\n            if (!UseCritNThreshold)\r\n                return true;\r\n            \r\n            double[] weights = GetLayerWeights();\r\n            double cumSoilN = 0;\r\n\r\n            for (int i = 0; i < soilPhysical.Thickness.Length; i++)\r\n            {\r\n                if (nutrient != null)\r\n                    cumSoilN += weights[i] * nutrient.MineralN[i];\r\n                else if (soilN != null)\r\n                    cumSoilN += weights[i] * soilN.mineral_n[i];\r\n            }\r\n\r\n            return cumSoilN <= CritNThreshold;\r\n        }\r\n\r\n        private double[] GetLayerWeights()\r\n        {\r\n            double[] weights = new double[soilPhysical.Thickness.Length];\r\n            double cumDepth = 0;\r\n\r\n            for (int i = 0; i < soilPhysical.Thickness.Length; i++)\r\n            {\r\n                cumDepth += soilPhysical.Thickness[i];\r\n                if (cumDepth < CritNDepth)\r\n                    weights[i] = 1;\r\n                else if (cumDepth - soilPhysical.Thickness[i] <= CritNDepth)\r\n                    weights[i] = (CritNDepth - (cumDepth - soilPhysical.Thickness[i])) / soilPhysical.Thickness[i];\r\n                else\r\n                    weights[i] = 0;\r\n            }\r\n\r\n            return weights;\r\n        }\r\n\r\n        private bool SameDate(DateTime d1, DateTime d2)\r\n        {\r\n            return d1.Year == d2.Year && d1.DayOfYear == d2.DayOfYear;\r\n        }\r\n    }\r\n}\r\n",
                       "Parameters": [
                         {
-                          "Key": "EachYear",
-                          "Value": "False"
+                          "Key": "Amount",
+                          "Value": "46"
                         },
                         {
                           "Key": "Dates",
                           "Value": "16-nov-2018, 07-dec-2018, 04-jan-2019"
+                        },
+                        {
+                          "Key": "EachYear",
+                          "Value": "False"
                         },
                         {
                           "Key": "UseCritNThreshold",
@@ -768,10 +772,6 @@
                         {
                           "Key": "Depth",
                           "Value": "0"
-                        },
-                        {
-                          "Key": "Amount",
-                          "Value": "46"
                         },
                         {
                           "Key": "FertiliserType",
@@ -814,6 +814,413 @@
                         }
                       ],
                       "Name": "Irrigate on fixed dates",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Manager, Models",
+                      "Code": "using APSIM.Shared.Utilities;\r\nusing Models.Utilities;\r\nusing Models.Soils;\r\nusing Models.PMF;\r\nusing Models.Core;\r\nusing System;\r\n\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n        [Link] Fertiliser Fertiliser;\r\n        [Link] Summary Summary;\r\n        [Link] Soil Soil;\r\n        \r\n        [Description(\"Crop\")]\r\n        public IPlant Crop { get; set; }\r\n\r\n        [Description(\"Sowing date (d-mmm)\")]\r\n        public string SowDate { get; set; }\r\n\r\n        [Display(Type = DisplayType.CultivarName)]\r\n        [Description(\"Cultivar to be sown\")]\r\n        public string CultivarName { get; set; }\r\n\r\n        [Description(\"Sowing depth (mm)\")]\r\n        public double SowingDepth { get; set; }\r\n\r\n        [Description(\"Row spacing (mm)\")]\r\n        public double RowSpacing { get; set; }\r\n\r\n        [Description(\"Plant population (/m2)\")]\r\n        public double Population { get; set; }\r\n\r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            if (DateUtilities.WithinDates(SowDate, Clock.Today, SowDate))\r\n            {\r\n                Crop.Sow(population: Population, cultivar: CultivarName, depth: SowingDepth, rowSpacing: RowSpacing);    \r\n            }\r\n        }\r\n    }\r\n}\r\n",
+                      "Parameters": [
+                        {
+                          "Key": "Crop",
+                          "Value": "[Wheat]"
+                        },
+                        {
+                          "Key": "SowDate",
+                          "Value": "24-Jul"
+                        },
+                        {
+                          "Key": "CultivarName",
+                          "Value": "Whistler"
+                        },
+                        {
+                          "Key": "SowingDepth",
+                          "Value": "35"
+                        },
+                        {
+                          "Key": "RowSpacing",
+                          "Value": "250"
+                        },
+                        {
+                          "Key": "Population",
+                          "Value": "450"
+                        }
+                      ],
+                      "Name": "SowingRule",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    }
+                  ],
+                  "Enabled": true,
+                  "ReadOnly": false
+                }
+              ],
+              "Enabled": true,
+              "ReadOnly": false
+            },
+            {
+              "$type": "Models.Core.Folder, Models",
+              "ShowInDocs": false,
+              "GraphsPerPage": 6,
+              "Name": "Graphs",
+              "ResourceName": null,
+              "Children": [
+                {
+                  "$type": "Models.Graph, Models",
+                  "Caption": null,
+                  "Axis": [
+                    {
+                      "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                      "Title": null,
+                      "Position": 3,
+                      "Inverted": false,
+                      "CrossesAtZero": false,
+                      "Minimum": null,
+                      "Maximum": null,
+                      "Interval": null
+                    },
+                    {
+                      "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                      "Title": null,
+                      "Position": 0,
+                      "Inverted": false,
+                      "CrossesAtZero": false,
+                      "Minimum": null,
+                      "Maximum": null,
+                      "Interval": null
+                    }
+                  ],
+                  "LegendPosition": 0,
+                  "LegendOrientation": 0,
+                  "AnnotationLocation": 0,
+                  "DisabledSeries": [],
+                  "LegendOutsideGraph": false,
+                  "Name": "LAI",
+                  "ResourceName": null,
+                  "Children": [
+                    {
+                      "$type": "Models.Series, Models",
+                      "Type": 1,
+                      "XAxis": 3,
+                      "YAxis": 0,
+                      "ColourArgb": 0,
+                      "FactorToVaryColours": "N",
+                      "FactorToVaryMarkers": null,
+                      "FactorToVaryLines": "Sow",
+                      "Marker": 11,
+                      "MarkerSize": 0,
+                      "Line": 0,
+                      "LineThickness": 0,
+                      "TableName": "Report",
+                      "XFieldName": "Clock.Today",
+                      "YFieldName": "Wheat.Leaf.LAI",
+                      "X2FieldName": null,
+                      "Y2FieldName": null,
+                      "ShowInLegend": true,
+                      "IncludeSeriesNameInLegend": true,
+                      "Cumulative": false,
+                      "CumulativeX": false,
+                      "Filter": null,
+                      "Name": "Series",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    }
+                  ],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Graph, Models",
+                  "Caption": null,
+                  "Axis": [
+                    {
+                      "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                      "Title": null,
+                      "Position": 3,
+                      "Inverted": false,
+                      "CrossesAtZero": false,
+                      "Minimum": null,
+                      "Maximum": null,
+                      "Interval": null
+                    },
+                    {
+                      "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                      "Title": null,
+                      "Position": 0,
+                      "Inverted": false,
+                      "CrossesAtZero": false,
+                      "Minimum": null,
+                      "Maximum": null,
+                      "Interval": null
+                    }
+                  ],
+                  "LegendPosition": 0,
+                  "LegendOrientation": 0,
+                  "AnnotationLocation": 0,
+                  "DisabledSeries": [],
+                  "LegendOutsideGraph": false,
+                  "Name": "RootDepth",
+                  "ResourceName": null,
+                  "Children": [
+                    {
+                      "$type": "Models.Series, Models",
+                      "Type": 1,
+                      "XAxis": 3,
+                      "YAxis": 0,
+                      "ColourArgb": 0,
+                      "FactorToVaryColours": "N",
+                      "FactorToVaryMarkers": null,
+                      "FactorToVaryLines": "Sow",
+                      "Marker": 11,
+                      "MarkerSize": 0,
+                      "Line": 0,
+                      "LineThickness": 0,
+                      "TableName": "Report",
+                      "XFieldName": "Clock.Today",
+                      "YFieldName": "Wheat.Root.Depth",
+                      "X2FieldName": null,
+                      "Y2FieldName": null,
+                      "ShowInLegend": true,
+                      "IncludeSeriesNameInLegend": true,
+                      "Cumulative": false,
+                      "CumulativeX": false,
+                      "Filter": null,
+                      "Name": "Series",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    }
+                  ],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Graph, Models",
+                  "Caption": null,
+                  "Axis": [
+                    {
+                      "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                      "Title": null,
+                      "Position": 3,
+                      "Inverted": false,
+                      "CrossesAtZero": false,
+                      "Minimum": null,
+                      "Maximum": null,
+                      "Interval": null
+                    },
+                    {
+                      "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                      "Title": null,
+                      "Position": 0,
+                      "Inverted": false,
+                      "CrossesAtZero": false,
+                      "Minimum": null,
+                      "Maximum": null,
+                      "Interval": null
+                    }
+                  ],
+                  "LegendPosition": 0,
+                  "LegendOrientation": 0,
+                  "AnnotationLocation": 0,
+                  "DisabledSeries": [],
+                  "LegendOutsideGraph": false,
+                  "Name": "SW",
+                  "ResourceName": null,
+                  "Children": [
+                    {
+                      "$type": "Models.Series, Models",
+                      "Type": 1,
+                      "XAxis": 3,
+                      "YAxis": 0,
+                      "ColourArgb": 0,
+                      "FactorToVaryColours": "N",
+                      "FactorToVaryMarkers": null,
+                      "FactorToVaryLines": "Sow",
+                      "Marker": 11,
+                      "MarkerSize": 0,
+                      "Line": 0,
+                      "LineThickness": 0,
+                      "TableName": "Report",
+                      "XFieldName": "Clock.Today",
+                      "YFieldName": "Soil.Water.Volumetric(1)",
+                      "X2FieldName": null,
+                      "Y2FieldName": null,
+                      "ShowInLegend": true,
+                      "IncludeSeriesNameInLegend": true,
+                      "Cumulative": false,
+                      "CumulativeX": false,
+                      "Filter": null,
+                      "Name": "Series",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Series, Models",
+                      "Type": 1,
+                      "XAxis": 3,
+                      "YAxis": 0,
+                      "ColourArgb": -2793984,
+                      "FactorToVaryColours": null,
+                      "FactorToVaryMarkers": null,
+                      "FactorToVaryLines": "Sow",
+                      "Marker": 11,
+                      "MarkerSize": 0,
+                      "Line": 0,
+                      "LineThickness": 0,
+                      "TableName": "Report",
+                      "XFieldName": "Clock.Today",
+                      "YFieldName": "Soil.Physical.LL15(1)",
+                      "X2FieldName": null,
+                      "Y2FieldName": null,
+                      "ShowInLegend": true,
+                      "IncludeSeriesNameInLegend": true,
+                      "Cumulative": false,
+                      "CumulativeX": false,
+                      "Filter": null,
+                      "Name": "LL",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    }
+                  ],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Graph, Models",
+                  "Caption": null,
+                  "Axis": [
+                    {
+                      "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                      "Title": null,
+                      "Position": 3,
+                      "Inverted": false,
+                      "CrossesAtZero": false,
+                      "Minimum": null,
+                      "Maximum": null,
+                      "Interval": null
+                    },
+                    {
+                      "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                      "Title": null,
+                      "Position": 0,
+                      "Inverted": false,
+                      "CrossesAtZero": false,
+                      "Minimum": null,
+                      "Maximum": null,
+                      "Interval": null
+                    },
+                    {
+                      "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                      "Title": "Irrigation.IrrigationApplied",
+                      "Position": 2,
+                      "Inverted": false,
+                      "CrossesAtZero": false,
+                      "Minimum": null,
+                      "Maximum": null,
+                      "Interval": null
+                    }
+                  ],
+                  "LegendPosition": 0,
+                  "LegendOrientation": 0,
+                  "AnnotationLocation": 0,
+                  "DisabledSeries": [],
+                  "LegendOutsideGraph": false,
+                  "Name": "Es",
+                  "ResourceName": null,
+                  "Children": [
+                    {
+                      "$type": "Models.Series, Models",
+                      "Type": 1,
+                      "XAxis": 3,
+                      "YAxis": 0,
+                      "ColourArgb": 0,
+                      "FactorToVaryColours": "N",
+                      "FactorToVaryMarkers": null,
+                      "FactorToVaryLines": "Sow",
+                      "Marker": 11,
+                      "MarkerSize": 0,
+                      "Line": 0,
+                      "LineThickness": 0,
+                      "TableName": "Report",
+                      "XFieldName": "Clock.Today",
+                      "YFieldName": "Soil.SoilWater.Es",
+                      "X2FieldName": null,
+                      "Y2FieldName": null,
+                      "ShowInLegend": true,
+                      "IncludeSeriesNameInLegend": true,
+                      "Cumulative": false,
+                      "CumulativeX": false,
+                      "Filter": null,
+                      "Name": "Series",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Series, Models",
+                      "Type": 1,
+                      "XAxis": 3,
+                      "YAxis": 2,
+                      "ColourArgb": -16747854,
+                      "FactorToVaryColours": null,
+                      "FactorToVaryMarkers": null,
+                      "FactorToVaryLines": "Sow",
+                      "Marker": 11,
+                      "MarkerSize": 0,
+                      "Line": 0,
+                      "LineThickness": 0,
+                      "TableName": "Report",
+                      "XFieldName": "Clock.Today",
+                      "YFieldName": "Weather.Rain",
+                      "X2FieldName": null,
+                      "Y2FieldName": null,
+                      "ShowInLegend": true,
+                      "IncludeSeriesNameInLegend": true,
+                      "Cumulative": false,
+                      "CumulativeX": false,
+                      "Filter": null,
+                      "Name": "Series1",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Series, Models",
+                      "Type": 1,
+                      "XAxis": 3,
+                      "YAxis": 2,
+                      "ColourArgb": -11094807,
+                      "FactorToVaryColours": null,
+                      "FactorToVaryMarkers": null,
+                      "FactorToVaryLines": "Sow",
+                      "Marker": 11,
+                      "MarkerSize": 0,
+                      "Line": 0,
+                      "LineThickness": 0,
+                      "TableName": "Report",
+                      "XFieldName": "Clock.Today",
+                      "YFieldName": "Irrigation.IrrigationApplied",
+                      "X2FieldName": null,
+                      "Y2FieldName": null,
+                      "ShowInLegend": true,
+                      "IncludeSeriesNameInLegend": true,
+                      "Cumulative": false,
+                      "CumulativeX": false,
+                      "Filter": null,
+                      "Name": "Series11",
                       "ResourceName": null,
                       "Children": [],
                       "Enabled": true,

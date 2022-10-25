@@ -1,6 +1,6 @@
 {
   "$type": "Models.Core.Simulations, Models",
-  "ExplorerWidth": 475,
+  "ExplorerWidth": 285,
   "Version": 156,
   "Name": "Simulations",
   "ResourceName": null,
@@ -24,8 +24,8 @@
         },
         {
           "$type": "Models.Clock, Models",
-          "Start": "1993-01-01T00:00:00",
-          "End": "1950-12-24T00:00:00",
+          "Start": "1993-07-01T00:00:00",
+          "End": "2001-12-24T00:00:00",
           "Name": "Clock",
           "ResourceName": null,
           "Children": [],
@@ -50,6 +50,25 @@
           "Name": "paddock",
           "ResourceName": null,
           "Children": [
+            {
+              "$type": "Models.Report, Models",
+              "VariableNames": [
+                "[Clock].Today",
+                "[Wheat].AboveGround.Wt",
+                "[Wheat].Grain.Total.Wt*10 as Yield",
+                "[Wheat].Grain.Protein",
+                "[Wheat].Grain.Size"
+              ],
+              "EventNames": [
+                "[Clock].DoReport"
+              ],
+              "GroupByVariableName": null,
+              "Name": "Report",
+              "ResourceName": null,
+              "Children": [],
+              "Enabled": true,
+              "ReadOnly": false
+            },
             {
               "$type": "Models.Soils.Soil, Models",
               "RecordNumber": 0,
@@ -969,26 +988,6 @@
               "ReadOnly": false
             },
             {
-              "$type": "Models.Report, Models",
-              "VariableNames": [
-                "[Clock].Today",
-                "biomass",
-                "yield",
-                "grain_protein",
-                "grain_size",
-                "esw"
-              ],
-              "EventNames": [
-                "[Clock].DoReport"
-              ],
-              "GroupByVariableName": null,
-              "Name": "outputfile",
-              "ResourceName": null,
-              "Children": [],
-              "Enabled": true,
-              "ReadOnly": false
-            },
-            {
               "$type": "Models.MicroClimate, Models",
               "a_interception": 0.0,
               "b_interception": 1.0,
@@ -1013,6 +1012,72 @@
           "Name": "SoilArbitrator",
           "ResourceName": null,
           "Children": [],
+          "Enabled": true,
+          "ReadOnly": false
+        },
+        {
+          "$type": "Models.Graph, Models",
+          "Caption": null,
+          "Axis": [
+            {
+              "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+              "Title": null,
+              "Position": 3,
+              "Inverted": false,
+              "CrossesAtZero": false,
+              "Minimum": null,
+              "Maximum": null,
+              "Interval": null
+            },
+            {
+              "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+              "Title": null,
+              "Position": 0,
+              "Inverted": false,
+              "CrossesAtZero": false,
+              "Minimum": null,
+              "Maximum": null,
+              "Interval": null
+            }
+          ],
+          "LegendPosition": 0,
+          "LegendOrientation": 0,
+          "AnnotationLocation": 0,
+          "DisabledSeries": [],
+          "LegendOutsideGraph": false,
+          "Name": "Yield",
+          "ResourceName": null,
+          "Children": [
+            {
+              "$type": "Models.Series, Models",
+              "Type": 0,
+              "XAxis": 3,
+              "YAxis": 0,
+              "ColourArgb": 0,
+              "FactorToVaryColours": null,
+              "FactorToVaryMarkers": null,
+              "FactorToVaryLines": null,
+              "Marker": 0,
+              "MarkerSize": 0,
+              "Line": 0,
+              "LineThickness": 0,
+              "TableName": "Report",
+              "XFieldName": "Clock.Today",
+              "YFieldName": "Yield",
+              "X2FieldName": null,
+              "Y2FieldName": null,
+              "ShowInLegend": false,
+              "IncludeSeriesNameInLegend": false,
+              "Cumulative": false,
+              "CumulativeX": false,
+              "Filter": null,
+              "Name": "Series",
+              "ResourceName": null,
+              "Children": [],
+              "Enabled": true,
+              "ReadOnly": false
+            }
+          ],
           "Enabled": true,
           "ReadOnly": false
         }

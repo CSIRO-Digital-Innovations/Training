@@ -1,6 +1,6 @@
 {
   "$type": "Models.Core.Simulations, Models",
-  "ExplorerWidth": 285,
+  "ExplorerWidth": 300,
   "Version": 156,
   "Name": "Simulations",
   "ResourceName": null,
@@ -2159,11 +2159,6 @@
               "Children": [
                 {
                   "$type": "Models.Series, Models",
-                  "TableName": "outputfile",
-                  "XFieldName": "Clock.Today",
-                  "YFieldName": "wheat.Grain.Wt",
-                  "X2FieldName": null,
-                  "Y2FieldName": null,
                   "Type": 1,
                   "XAxis": 3,
                   "YAxis": 0,
@@ -2175,6 +2170,11 @@
                   "MarkerSize": 0,
                   "Line": 0,
                   "LineThickness": 0,
+                  "TableName": "outputfile",
+                  "XFieldName": "Clock.Today",
+                  "YFieldName": "wheat.Grain.Wt",
+                  "X2FieldName": null,
+                  "Y2FieldName": null,
                   "ShowInLegend": true,
                   "IncludeSeriesNameInLegend": false,
                   "Cumulative": false,

@@ -1,6 +1,6 @@
 {
   "$type": "Models.Core.Simulations, Models",
-  "ExplorerWidth": 527,
+  "ExplorerWidth": 300,
   "Version": 156,
   "Name": "Simulations",
   "ResourceName": null,
@@ -636,7 +636,7 @@
             },
             {
               "$type": "Models.Manager, Models",
-              "Code": "using Models.Soils;\nusing System;\nusing System.Linq;\nusing Models.Core;\nusing Models.PMF;\nnamespace Models\n{\n    [Serializable]\n    public class Script : Model\n    {\n        [Link] Clock Clock;\n        [Link] Fertiliser Fertiliser;\n        [Link(ByName=true)] private Solute No3;\n\n\n        [Description(\"Nitrogen threshold to top up to (kg/ha)\")]\n        public double NThreshold { get; set;} // this how you set a variable name\n        \n        [Description(\"Nitrogen trigger to fertilise (kg/ha)\")]\n        public double NTrigger { get; set;} \n        \n        public double NAmount { get; set;}\n        public double NInSoil { get; set;}\n        \n        [EventSubscribe(\"DoManagement\")]\n        private void OnDoManagement(object sender, EventArgs e)\n        {\n            //NInSoil = No3.kgha.Sum();\n            NInSoil = No3.kgha[0]+No3.kgha[1]+No3.kgha[3];\n            NAmount = NThreshold-NInSoil;\n            if (NInSoil<= NTrigger)\n            {\n                Fertiliser.Apply(NAmount,Fertiliser.Types.NO3N);\n            }\n            \n        }\n    }\n}\n\n\nusing Models.Soils;\n\n",
+              "Code": "using Models.Soils;\nusing System;\nusing System.Linq;\nusing Models.Core;\nusing Models.PMF;\nnamespace Models\n{\n    [Serializable]\n    public class Script : Model\n    {\n        [Link] Clock Clock;\n        [Link] Fertiliser Fertiliser;\n        [Link(ByName=true)] private Solute No3;\n\n\n        [Description(\"Nitrogen threshold to top up to (kg/ha)\")]\n        public double NThreshold { get; set;} // this how you set a variable name\n        \n        [Description(\"Nitrogen trigger to fertilise (kg/ha)\")]\n        public double NTrigger { get; set;} \n        \n        public double NAmount { get; set;}\n        public double NInSoil { get; set;}\n        \n        [EventSubscribe(\"DoManagement\")]\n        private void OnDoManagement(object sender, EventArgs e)\n        {\n            //NInSoil = No3.kgha.Sum();\n            NInSoil = No3.kgha[0]+No3.kgha[1]+No3.kgha[3];\n            NAmount = NThreshold-NInSoil;\n            if (NInSoil<= NTrigger)\n            {\n                Fertiliser.Apply(NAmount,Fertiliser.Types.NO3N);\n            }\n            \n        }\n    }\n}\n",
               "Parameters": [
                 {
                   "Key": "NThreshold",

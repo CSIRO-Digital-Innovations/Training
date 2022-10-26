@@ -1,0 +1,928 @@
+{
+  "$type": "Models.Core.Simulations, Models",
+  "ExplorerWidth": 425,
+  "Version": 156,
+  "Name": "Simulations",
+  "ResourceName": null,
+  "Children": [
+    {
+      "$type": "Models.Factorial.Experiment, Models",
+      "DisabledSimNames": null,
+      "Name": "DDRF",
+      "ResourceName": null,
+      "Children": [
+        {
+          "$type": "Models.Factorial.Factors, Models",
+          "Name": "Factors",
+          "ResourceName": null,
+          "Children": [
+            {
+              "$type": "Models.Factorial.Permutation, Models",
+              "Name": "Permutation",
+              "ResourceName": null,
+              "Children": [
+                {
+                  "$type": "Models.Factorial.Factor, Models",
+                  "Specification": "[SowingRule].Script.RowSpacing = 500, 1000, 1500",
+                  "Name": "RS",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                }
+              ],
+              "Enabled": true,
+              "ReadOnly": false
+            }
+          ],
+          "Enabled": true,
+          "ReadOnly": false
+        },
+        {
+          "$type": "Models.Core.Simulation, Models",
+          "Descriptors": null,
+          "Name": "Simulation",
+          "ResourceName": null,
+          "Children": [
+            {
+              "$type": "Models.Clock, Models",
+              "Start": "2021-01-01T00:00:00",
+              "End": "2021-06-30T00:00:00",
+              "Name": "clock",
+              "ResourceName": null,
+              "Children": [],
+              "Enabled": true,
+              "ReadOnly": false
+            },
+            {
+              "$type": "Models.Summary, Models",
+              "Verbosity": 100,
+              "Name": "summaryfile",
+              "ResourceName": null,
+              "Children": [],
+              "Enabled": true,
+              "ReadOnly": false
+            },
+            {
+              "$type": "Models.Climate.Weather, Models",
+              "ConstantsFile": null,
+              "FileName": "C:\\Users\\rhe005\\OneDrive - CSIRO\\Cotton NextGen\\Validation data sets\\NT_RS-DDRF2021\\NT_RS-DDRF2021.met",
+              "ExcelWorkSheetName": "",
+              "Name": "Weather",
+              "ResourceName": null,
+              "Children": [],
+              "Enabled": true,
+              "ReadOnly": false
+            },
+            {
+              "$type": "Models.Soils.Arbitrator.SoilArbitrator, Models",
+              "Name": "Soil Arbitrator",
+              "ResourceName": null,
+              "Children": [],
+              "Enabled": true,
+              "ReadOnly": false
+            },
+            {
+              "$type": "Models.Core.Zone, Models",
+              "Area": 1.0,
+              "Slope": 0.0,
+              "AspectAngle": 0.0,
+              "Altitude": 50.0,
+              "Name": "paddock",
+              "ResourceName": null,
+              "Children": [
+                {
+                  "$type": "Models.Report, Models",
+                  "VariableNames": [
+                    "[Clock].Today",
+                    "[Soybean].Phenology.Stage",
+                    "[Soybean].Phenology.CurrentStageName",
+                    "[Soybean].AboveGround.Wt",
+                    "[Soybean].AboveGround.N",
+                    "[Soybean].Grain.Total.Wt*10 as Yield",
+                    "[Soybean].Grain.NConc",
+                    "[Soybean].Grain.Size",
+                    "[Soybean].Grain.Number",
+                    "[Soybean].Grain.Total.Wt",
+                    "[Soybean].Grain.Total.N",
+                    "[Soybean].Total.Wt"
+                  ],
+                  "EventNames": [
+                    "[Soybean].Harvesting"
+                  ],
+                  "GroupByVariableName": null,
+                  "Name": "HarvestReport",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Fertiliser, Models",
+                  "Name": "fertiliser",
+                  "ResourceName": "Fertiliser",
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Soils.Soil, Models",
+                  "RecordNumber": 0,
+                  "ASCOrder": null,
+                  "ASCSubOrder": null,
+                  "SoilType": "Haplic Mesotrophic Red Dermosol",
+                  "LocalName": "Tindall",
+                  "Site": "RS-DDRF",
+                  "NearestTown": "Pine Creek",
+                  "Region": "Daly Basin",
+                  "State": "Northern Territory",
+                  "Country": "Australia",
+                  "NaturalVegetation": null,
+                  "ApsoilNumber": null,
+                  "Latitude": -13.83,
+                  "Longitude": 131.21,
+                  "LocationAccuracy": null,
+                  "YearOfSampling": "2021",
+                  "DataSource": "CSIRO/NTDPI",
+                  "Comments": null,
+                  "Name": "Tindall",
+                  "ResourceName": null,
+                  "Children": [
+                    {
+                      "$type": "Models.Soils.Water, Models",
+                      "Thickness": [
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        200.0
+                      ],
+                      "InitialValues": [
+                        0.2,
+                        0.27,
+                        0.23,
+                        0.201,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15
+                      ],
+                      "RelativeTo": "LL15",
+                      "FilledFromTop": true,
+                      "Name": "Water",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Soils.Physical, Models",
+                      "Thickness": [
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        200.0
+                      ],
+                      "ParticleSizeClay": null,
+                      "ParticleSizeSand": null,
+                      "ParticleSizeSilt": null,
+                      "Rocks": null,
+                      "Texture": null,
+                      "BD": [
+                        1.55,
+                        1.66,
+                        1.55,
+                        1.61,
+                        1.55,
+                        1.55,
+                        1.62,
+                        1.62,
+                        1.62,
+                        1.62,
+                        1.75,
+                        1.75
+                      ],
+                      "AirDry": [
+                        0.04,
+                        0.12,
+                        0.135,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15
+                      ],
+                      "LL15": [
+                        0.062,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15,
+                        0.15
+                      ],
+                      "DUL": [
+                        0.2,
+                        0.27,
+                        0.23,
+                        0.26,
+                        0.25,
+                        0.26,
+                        0.27,
+                        0.27,
+                        0.27,
+                        0.26,
+                        0.26,
+                        0.24
+                      ],
+                      "SAT": [
+                        0.36,
+                        0.32,
+                        0.37,
+                        0.34,
+                        0.36,
+                        0.36,
+                        0.34,
+                        0.34,
+                        0.34,
+                        0.34,
+                        0.31,
+                        0.29
+                      ],
+                      "KS": null,
+                      "BDMetadata": null,
+                      "AirDryMetadata": null,
+                      "LL15Metadata": null,
+                      "DULMetadata": [
+                        "Field measured and checked for sensibility",
+                        "Field measured and checked for sensibility",
+                        "Field measured and checked for sensibility",
+                        "Field measured and checked for sensibility",
+                        "Field measured and checked for sensibility",
+                        "Field measured and checked for sensibility",
+                        "Field measured and checked for sensibility",
+                        "Field measured and checked for sensibility",
+                        "Field measured and checked for sensibility",
+                        "Field measured and checked for sensibility",
+                        "Field measured and checked for sensibility",
+                        "Field measured and checked for sensibility"
+                      ],
+                      "SATMetadata": null,
+                      "KSMetadata": null,
+                      "RocksMetadata": null,
+                      "TextureMetadata": null,
+                      "ParticleSizeSandMetadata": null,
+                      "ParticleSizeSiltMetadata": null,
+                      "ParticleSizeClayMetadata": null,
+                      "Name": "Physical",
+                      "ResourceName": null,
+                      "Children": [
+                        {
+                          "$type": "Models.Soils.SoilCrop, Models",
+                          "LL": [
+                            0.06,
+                            0.15,
+                            0.17,
+                            0.19,
+                            0.17,
+                            0.19,
+                            0.19,
+                            0.19,
+                            0.19,
+                            0.19,
+                            0.21,
+                            0.21
+                          ],
+                          "KL": [
+                            0.1,
+                            0.1,
+                            0.1,
+                            0.09,
+                            0.07,
+                            0.05,
+                            0.03,
+                            0.03,
+                            0.03,
+                            0.03,
+                            0.01,
+                            0.01
+                          ],
+                          "XF": [
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0,
+                            1.0
+                          ],
+                          "LLMetadata": null,
+                          "KLMetadata": null,
+                          "XFMetadata": null,
+                          "Name": "Soybean",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        }
+                      ],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.WaterModel.WaterBalance, Models",
+                      "SummerDate": "1-Sep",
+                      "SummerU": 6.0,
+                      "SummerCona": 3.5,
+                      "WinterDate": "1-Jun",
+                      "WinterU": 4.0,
+                      "WinterCona": 3.5,
+                      "DiffusConst": 88.0,
+                      "DiffusSlope": 35.4,
+                      "Salb": 0.13,
+                      "CN2Bare": 80.0,
+                      "CNRed": 20.0,
+                      "CNCov": 0.8,
+                      "DischargeWidth": "NaN",
+                      "CatchmentArea": "NaN",
+                      "PSIDul": -100.0,
+                      "Thickness": [
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        200.0
+                      ],
+                      "SWCON": [
+                        1.0,
+                        0.8,
+                        0.6,
+                        0.4,
+                        0.4,
+                        0.4,
+                        0.4,
+                        0.4,
+                        0.4,
+                        0.4,
+                        0.4,
+                        0.4
+                      ],
+                      "KLAT": null,
+                      "Name": "SoilWater",
+                      "ResourceName": "WaterBalance",
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Soils.Organic, Models",
+                      "FOMCNRatio": 40.0,
+                      "Thickness": [
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        200.0
+                      ],
+                      "Carbon": [
+                        0.33,
+                        0.21,
+                        0.16,
+                        0.11,
+                        0.1,
+                        0.1,
+                        0.1,
+                        0.1,
+                        0.1,
+                        0.1,
+                        0.1,
+                        0.05
+                      ],
+                      "CarbonUnits": 0,
+                      "SoilCNRatio": [
+                        12.0,
+                        12.0,
+                        12.0,
+                        12.0,
+                        12.0,
+                        12.0,
+                        12.0,
+                        12.0,
+                        12.0,
+                        12.0,
+                        12.0,
+                        12.0
+                      ],
+                      "FBiom": [
+                        0.035,
+                        0.02,
+                        0.02,
+                        0.02,
+                        0.01,
+                        0.01,
+                        0.01,
+                        0.01,
+                        0.01,
+                        0.01,
+                        0.01,
+                        0.01
+                      ],
+                      "FInert": [
+                        0.3,
+                        0.3,
+                        0.4,
+                        0.6,
+                        0.9,
+                        0.95,
+                        0.95,
+                        0.95,
+                        0.95,
+                        0.95,
+                        0.95,
+                        1.0
+                      ],
+                      "FOM": [
+                        237.302,
+                        183.495,
+                        141.889,
+                        109.717,
+                        84.839,
+                        65.603,
+                        50.728,
+                        39.226,
+                        30.332,
+                        23.454,
+                        18.136,
+                        15.279
+                      ],
+                      "CarbonMetadata": null,
+                      "FOMMetadata": null,
+                      "Name": "Organic",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Soils.CERESSoilTemperature, Models",
+                      "Name": "Temperature",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Soils.Chemical, Models",
+                      "Thickness": [
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        300.0,
+                        200.0
+                      ],
+                      "PH": [
+                        6.185,
+                        6.28,
+                        6.445,
+                        6.356,
+                        "NaN",
+                        "NaN",
+                        "NaN",
+                        "NaN",
+                        "NaN",
+                        "NaN",
+                        "NaN",
+                        "NaN"
+                      ],
+                      "PHUnits": 0,
+                      "EC": null,
+                      "ESP": null,
+                      "ECMetadata": null,
+                      "CLMetadata": null,
+                      "ESPMetadata": null,
+                      "PHMetadata": [
+                        "Measured",
+                        "Measured",
+                        "Measured",
+                        "Measured",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                      ],
+                      "Name": "Chemical",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Soils.Nutrients.Nutrient, Models",
+                      "Name": "Nutrient",
+                      "ResourceName": "Nutrient",
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Soils.Solute, Models",
+                      "Thickness": [
+                        1800.0
+                      ],
+                      "InitialValues": [
+                        3.0
+                      ],
+                      "InitialValuesUnits": 0,
+                      "WaterTableConcentration": 0.0,
+                      "D0": 0.0,
+                      "Exco": null,
+                      "FIP": null,
+                      "DepthConstant": 0.0,
+                      "MaxDepthSoluteAccessible": 0.0,
+                      "RunoffEffectivenessAtMovingSolute": 0.0,
+                      "MaxEffectiveRunoff": 0.0,
+                      "Name": "NO3",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Soils.Solute, Models",
+                      "Thickness": [
+                        1800.0
+                      ],
+                      "InitialValues": [
+                        1.0
+                      ],
+                      "InitialValuesUnits": 0,
+                      "WaterTableConcentration": 0.0,
+                      "D0": 0.0,
+                      "Exco": null,
+                      "FIP": null,
+                      "DepthConstant": 0.0,
+                      "MaxDepthSoluteAccessible": 0.0,
+                      "RunoffEffectivenessAtMovingSolute": 0.0,
+                      "MaxEffectiveRunoff": 0.0,
+                      "Name": "NH4",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Soils.Solute, Models",
+                      "Thickness": [
+                        1800.0
+                      ],
+                      "InitialValues": [
+                        0.0
+                      ],
+                      "InitialValuesUnits": 0,
+                      "WaterTableConcentration": 0.0,
+                      "D0": 0.0,
+                      "Exco": null,
+                      "FIP": null,
+                      "DepthConstant": 0.0,
+                      "MaxDepthSoluteAccessible": 0.0,
+                      "RunoffEffectivenessAtMovingSolute": 0.0,
+                      "MaxEffectiveRunoff": 0.0,
+                      "Name": "Urea",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    }
+                  ],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Surface.SurfaceOrganicMatter, Models",
+                  "SurfOM": [],
+                  "Canopies": [],
+                  "InitialResidueName": "nativepasture",
+                  "InitialResidueType": "nativepasture",
+                  "InitialResidueMass": 3833.0,
+                  "InitialStandingFraction": 0.3,
+                  "InitialCPR": 0.0,
+                  "InitialCNR": 34.0,
+                  "Name": "SurfaceOrganicMatter",
+                  "ResourceName": "SurfaceOrganicMatter",
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.PMF.Plant, Models",
+                  "Name": "Soybean",
+                  "ResourceName": "Soybean",
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.MicroClimate, Models",
+                  "a_interception": 0.0,
+                  "b_interception": 1.0,
+                  "c_interception": 0.0,
+                  "d_interception": 0.0,
+                  "SoilHeatFluxFraction": 0.4,
+                  "MinimumHeightDiffForNewLayer": 0.0,
+                  "NightInterceptionFraction": 0.5,
+                  "ReferenceHeight": 2.0,
+                  "Name": "MicroClimate",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Manager, Models",
+                  "Code": "using Models.Interfaces;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nusing Models.Soils;\r\nusing Models.Soils.Nutrients;\r\nusing Models.Utilities;\r\nusing APSIM.Shared.Utilities;\r\nusing Models.Climate;\r\n\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    public class Script : Model\r\n    {\r\n        [Link] private Clock Clock;\r\n        [Link] private Fertiliser Fertiliser;\r\n        [Link] private Summary Summary;\r\n        [Link] private Plant Soybean;\r\n        [Link] private Soil Soil;\r\n        private Accumulator accumulatedRain;\r\n        [Link]\r\n        private ISoilWater waterBalance;\r\n        \r\n        [Description(\"Start of sowing window (d-mmm)\")]\r\n        public string StartDate { get; set; }\r\n        [Description(\"End of sowing window (d-mmm)\")]\r\n        public string EndDate { get; set; }\r\n        [Description(\"Minimum extractable soil water for sowing (mm)\")]\r\n        public double MinESW { get; set; }\r\n        [Description(\"Accumulated rainfall required for sowing (mm)\")]\r\n        public double MinRain { get; set; }\r\n        [Description(\"Duration of rainfall accumulation (d)\")]\r\n        public int RainDays { get; set; }\r\n        [Description(\"Cultivar to be sown\")]\r\n        [Display(Type=DisplayType.CultivarName, PlantName = \"Soybean\")]\r\n        public string CultivarName { get; set; }\r\n        [Description(\"Sowing depth (mm)\")]\r\n        public double SowingDepth { get; set; }\r\n        [Description(\"Row spacing (mm)\")]\r\n        public double RowSpacing { get; set; }\r\n        [Description(\"Plant population (/m2)\")]\r\n        public double Population { get; set; }\r\n        \r\n        \r\n        [EventSubscribe(\"StartOfSimulation\")]\r\n        private void OnSimulationCommencing(object sender, EventArgs e)\r\n        {\r\n            accumulatedRain = new Accumulator(this, \"[Weather].Rain\", RainDays);\r\n        }\r\n        \r\n\r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            accumulatedRain.Update();\r\n            \r\n            if (DateUtilities.WithinDates(StartDate, Clock.Today, EndDate) &&\r\n                !Soybean.IsAlive &&\r\n                MathUtilities.Sum(waterBalance.ESW) > MinESW &&\r\n                accumulatedRain.Sum > MinRain)\r\n            {\r\n                Soybean.Sow(population: Population, cultivar: CultivarName, depth: SowingDepth, rowSpacing: RowSpacing);    \r\n            }\r\n        \r\n        }\r\n        \r\n    }\r\n}\r\n",
+                  "Parameters": [
+                    {
+                      "Key": "StartDate",
+                      "Value": "7-jan"
+                    },
+                    {
+                      "Key": "EndDate",
+                      "Value": "7-jan"
+                    },
+                    {
+                      "Key": "MinESW",
+                      "Value": "NaN"
+                    },
+                    {
+                      "Key": "MinRain",
+                      "Value": "NaN"
+                    },
+                    {
+                      "Key": "RainDays",
+                      "Value": "0"
+                    },
+                    {
+                      "Key": "CultivarName",
+                      "Value": "Davis"
+                    },
+                    {
+                      "Key": "SowingDepth",
+                      "Value": "40"
+                    },
+                    {
+                      "Key": "RowSpacing",
+                      "Value": "500"
+                    },
+                    {
+                      "Key": "Population",
+                      "Value": "38"
+                    }
+                  ],
+                  "Name": "SowingRule",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Manager, Models",
+                  "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nusing APSIM.Shared.Utilities;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n        [Link] Fertiliser Fertiliser;\r\n        \r\n        [Separator(\"A component to apply fertiliser on one or more dates on every year of the simulation\")]\r\n\r\n        [Description(\"Type of fertiliser to apply? \")] \r\n        public Fertiliser.Types FertiliserType { get; set; }\r\n\r\n        [Description(\"Enter the fertilisation dates as dd-mmm with comma separation (any year information entered will be ignored): \")] \r\n        public string[] FertiliserDates { get; set; } \r\n\r\n        [Description(\"Amount of fertiliser to be applied (kg /ha)\")] \r\n        public double Amount { get; set; }\r\n\r\n        [Description(\"Is the above amount to be applied each time? (yes/ticked)? Or is it the total annual amount across all dates (no/unticked)\")] \r\n        public bool AmountType { get; set; }\r\n        \r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            foreach (string ddMMM in FertiliserDates)\r\n            {\r\n                if (DateUtilities.DatesEqual(ddMMM, Clock.Today))\r\n                {\r\n                    if (AmountType)\r\n                        Fertiliser.Apply(Amount: Amount, Type: FertiliserType);\r\n                    else\r\n                        Fertiliser.Apply(Amount: Amount / FertiliserDates.Length, Type: FertiliserType);\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+                  "Parameters": [
+                    {
+                      "Key": "FertiliserType",
+                      "Value": "UreaN"
+                    },
+                    {
+                      "Key": "FertiliserDates",
+                      "Value": "28-jan"
+                    },
+                    {
+                      "Key": "Amount",
+                      "Value": "40"
+                    },
+                    {
+                      "Key": "AmountType",
+                      "Value": "False"
+                    }
+                  ],
+                  "Name": "Fertilise 28 Jan",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Manager, Models",
+                  "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nusing APSIM.Shared.Utilities;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n        [Link] Fertiliser Fertiliser;\r\n        \r\n        [Separator(\"A component to apply fertiliser on one or more dates on every year of the simulation\")]\r\n\r\n        [Description(\"Type of fertiliser to apply? \")] \r\n        public Fertiliser.Types FertiliserType { get; set; }\r\n\r\n        [Description(\"Enter the fertilisation dates as dd-mmm with comma separation (any year information entered will be ignored): \")] \r\n        public string[] FertiliserDates { get; set; } \r\n\r\n        [Description(\"Amount of fertiliser to be applied (kg /ha)\")] \r\n        public double Amount { get; set; }\r\n\r\n        [Description(\"Is the above amount to be applied each time? (yes/ticked)? Or is it the total annual amount across all dates (no/unticked)\")] \r\n        public bool AmountType { get; set; }\r\n        \r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            foreach (string ddMMM in FertiliserDates)\r\n            {\r\n                if (DateUtilities.DatesEqual(ddMMM, Clock.Today))\r\n                {\r\n                    if (AmountType)\r\n                        Fertiliser.Apply(Amount: Amount, Type: FertiliserType);\r\n                    else\r\n                        Fertiliser.Apply(Amount: Amount / FertiliserDates.Length, Type: FertiliserType);\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n",
+                  "Parameters": [
+                    {
+                      "Key": "FertiliserType",
+                      "Value": "UreaN"
+                    },
+                    {
+                      "Key": "FertiliserDates",
+                      "Value": "16-feb"
+                    },
+                    {
+                      "Key": "Amount",
+                      "Value": "40"
+                    },
+                    {
+                      "Key": "AmountType",
+                      "Value": "False"
+                    }
+                  ],
+                  "Name": "Fertilise 16 Feb",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Manager, Models",
+                  "Code": "using Models.PMF.Phen;\r\nusing APSIM.Shared.Utilities;\r\nusing System.Xml.Serialization;\r\nusing Models;\r\nusing Models.PMF;\r\nusing Models.Soils;\r\nusing System.Text;\r\nusing System.Collections.Generic;\r\nusing Models.Core;\r\nusing System;\r\nusing Models.Soils.Nutrients;\r\n\r\nnamespace Models\r\n{\r\n    [Serializable] \r\n    public class Script : Model\r\n    {\r\n        [Link] private Plant Soybean;\r\n        [Link] private Zone zone;\r\n        [Link(Type = LinkType.Path, Path = \"[Soybean].Phenology\")]\r\n        private Phenology phenology;\r\n                    \r\n        \r\n        [EventSubscribe(\"StartOfSimulation\")]\r\n        private void OnSimulationCommencing(object sender, EventArgs e)\r\n        {\r\n        }\r\n        \r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            if (phenology.CurrentPhase.Name == \"ReadyForHarvesting\")\r\n            {\r\n                Soybean.Harvest();\r\n                Soybean.EndCrop();\r\n            }\r\n        }\r\n        \r\n        [EventSubscribe(\"DoManagementCalculations\")]\r\n        private void OnDoManagementCalculations(object sender, EventArgs e)\r\n        {\r\n            \r\n        }\r\n    }\r\n}\r\n       \r\n",
+                  "Parameters": [],
+                  "Name": "Harvesting",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                }
+              ],
+              "Enabled": true,
+              "ReadOnly": false
+            },
+            {
+              "$type": "Models.Graph, Models",
+              "Caption": null,
+              "Axis": [
+                {
+                  "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                  "Title": "Date",
+                  "Position": 3,
+                  "Inverted": false,
+                  "CrossesAtZero": false,
+                  "Minimum": null,
+                  "Maximum": null,
+                  "Interval": null
+                },
+                {
+                  "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                  "Title": null,
+                  "Position": 0,
+                  "Inverted": false,
+                  "CrossesAtZero": false,
+                  "Minimum": null,
+                  "Maximum": null,
+                  "Interval": null
+                }
+              ],
+              "LegendPosition": 0,
+              "LegendOrientation": 0,
+              "AnnotationLocation": 0,
+              "DisabledSeries": [],
+              "LegendOutsideGraph": false,
+              "Name": "Soybean Yield Time Series",
+              "ResourceName": null,
+              "Children": [
+                {
+                  "$type": "Models.Series, Models",
+                  "Type": 1,
+                  "XAxis": 3,
+                  "YAxis": 0,
+                  "ColourArgb": -1663232,
+                  "FactorToVaryColours": null,
+                  "FactorToVaryMarkers": null,
+                  "FactorToVaryLines": null,
+                  "Marker": 0,
+                  "MarkerSize": 0,
+                  "Line": 0,
+                  "LineThickness": 0,
+                  "TableName": "HarvestReport",
+                  "XFieldName": "Clock.Today",
+                  "YFieldName": "Soybean.Grain.Total.Wt",
+                  "X2FieldName": "",
+                  "Y2FieldName": "",
+                  "ShowInLegend": false,
+                  "IncludeSeriesNameInLegend": false,
+                  "Cumulative": false,
+                  "CumulativeX": false,
+                  "Filter": null,
+                  "Name": "Series 1",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                }
+              ],
+              "Enabled": true,
+              "ReadOnly": false
+            }
+          ],
+          "Enabled": true,
+          "ReadOnly": false
+        }
+      ],
+      "Enabled": true,
+      "ReadOnly": false
+    },
+    {
+      "$type": "Models.Storage.DataStore, Models",
+      "useFirebird": false,
+      "CustomFileName": null,
+      "Name": "DataStore",
+      "ResourceName": null,
+      "Children": [
+        {
+          "$type": "Models.PostSimulationTools.ExcelInput, Models",
+          "FileNames": [
+            "DDRFRS2021Obs.xlsx"
+          ],
+          "SheetNames": null,
+          "Name": "ExcelInput",
+          "ResourceName": null,
+          "Children": [],
+          "Enabled": true,
+          "ReadOnly": false
+        },
+        {
+          "$type": "Models.PostSimulationTools.PredictedObserved, Models",
+          "PredictedTableName": null,
+          "ObservedTableName": null,
+          "FieldNameUsedForMatch": null,
+          "FieldName2UsedForMatch": null,
+          "FieldName3UsedForMatch": null,
+          "FieldName4UsedForMatch": null,
+          "AllColumns": false,
+          "Name": "PredictedObserved",
+          "ResourceName": null,
+          "Children": [],
+          "Enabled": true,
+          "ReadOnly": false
+        }
+      ],
+      "Enabled": true,
+      "ReadOnly": false
+    }
+  ],
+  "Enabled": true,
+  "ReadOnly": false
+}

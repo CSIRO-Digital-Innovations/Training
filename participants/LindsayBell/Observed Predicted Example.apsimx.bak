@@ -1215,7 +1215,7 @@
                   "Inverted": false,
                   "CrossesAtZero": false,
                   "Minimum": 0.0,
-                  "Maximum": 6.0,
+                  "Maximum": "NaN",
                   "Interval": null
                 }
               ],
@@ -1293,7 +1293,7 @@
                   "Inverted": false,
                   "CrossesAtZero": false,
                   "Minimum": 0.0,
-                  "Maximum": 6.0,
+                  "Maximum": "NaN",
                   "Interval": null
                 }
               ],
@@ -1311,7 +1311,7 @@
                   "XAxis": 3,
                   "YAxis": 0,
                   "ColourArgb": 0,
-                  "FactorToVaryColours": "Experiment",
+                  "FactorToVaryColours": "SimulationName",
                   "FactorToVaryMarkers": null,
                   "FactorToVaryLines": null,
                   "Marker": 0,

@@ -1292,7 +1292,7 @@
                   "Position": 0,
                   "Inverted": false,
                   "CrossesAtZero": false,
-                  "Minimum": 0.0,
+                  "Minimum": "NaN",
                   "Maximum": "NaN",
                   "Interval": null
                 }
@@ -1320,7 +1320,7 @@
                   "LineThickness": 0,
                   "TableName": "PredictedObserved",
                   "XFieldName": "Observed.Barley.AboveGround.Wt",
-                  "YFieldName": "Predicted.Barley.AboveGround.Wt",
+                  "YFieldName": "Pred-Obs.Barley.AboveGround.Wt",
                   "X2FieldName": null,
                   "Y2FieldName": null,
                   "ShowInLegend": true,
@@ -1334,7 +1334,7 @@
                     {
                       "$type": "Models.Regression, Models",
                       "ForEachSeries": false,
-                      "showOneToOne": true,
+                      "showOneToOne": false,
                       "showEquation": true,
                       "Name": "Regression",
                       "ResourceName": null,

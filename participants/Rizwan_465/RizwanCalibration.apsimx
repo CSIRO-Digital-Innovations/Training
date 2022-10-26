@@ -1,6 +1,6 @@
 {
   "$type": "Models.Core.Simulations, Models",
-  "ExplorerWidth": 285,
+  "ExplorerWidth": 279,
   "Version": 156,
   "Name": "Simulations",
   "ResourceName": null,
@@ -109,9 +109,8 @@
                         {
                           "$type": "Models.Factorial.CompositeFactor, Models",
                           "Specifications": [
-                            "[SowingRule].Script.SowDate=16-nov",
-                            "[FertiliseWheat].Script.Dates=16-nov-2018, 07-dec-2018, 04-jan-2019",
-                            "[Irrigate on fixed dates].Script.Dates=07-dec-2018, 04-jan-2019, 06-feb-2019, 06-apr-2019"
+                            "[SowingRule].Script.SowDate=16-Nov",
+                            "[FertiliseWheat].Script.Dates=16-nov-2018, 07-dec-2018, 04-jan-2019"
                           ],
                           "Paths": null,
                           "Values": null,
@@ -125,8 +124,7 @@
                           "$type": "Models.Factorial.CompositeFactor, Models",
                           "Specifications": [
                             "[SowingRule].Script.SowDate=14-Dec",
-                            "[FertiliseWheat].Script.Dates=14-dec-2018, 08-jan-2019, 04-feb-2019",
-                            "[Irrigate on fixed dates].Script.Dates=08-jan-2018, 04-feb-2019, 02-mar-2019, 06-apr-2019"
+                            "[FertiliseWheat].Script.Dates=14-dec-2018, 08-jan-2019, 04-feb-2019"
                           ],
                           "Paths": null,
                           "Values": null,
@@ -157,7 +155,7 @@
                 {
                   "$type": "Models.Clock, Models",
                   "Start": "2018-11-16T00:00:00",
-                  "End": "2019-04-30T00:00:00",
+                  "End": "2019-05-15T00:00:00",
                   "Name": "Clock",
                   "ResourceName": null,
                   "Children": [],
@@ -170,84 +168,6 @@
                   "FileName": "FSD_Climate_2018-22.met",
                   "ExcelWorkSheetName": "",
                   "Name": "Weather",
-                  "ResourceName": null,
-                  "Children": [],
-                  "Enabled": true,
-                  "ReadOnly": false
-                },
-                {
-                  "$type": "Models.Manager, Models",
-                  "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    [System.Xml.Serialization.XmlInclude(typeof(Model))]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n\r\n        [Description(\"Enter window START date (dd-mmm) : \")]\r\n        public string date1 { get; set; }\r\n\r\n        [Description(\"Enter window END date (dd-mmm) : \")]\r\n        public string date2 { get; set; }\r\n\r\n        [Description(\"Change in maximum temperature (oC):\")]\r\n        public string MaxtChange { get; set; }\r\n\r\n        [Description(\"Change in minimum temperature (oC):\")]\r\n        public string MintChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily rainfall (%):\")]\r\n        public string RainChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily radiation (%):\")]\r\n        public string RadnChange { get; set; }\r\n\r\n        [Description(\"Atmospheric CO2 Concentration (ppm)\")]\r\n        public string CO2 { get; set; }\r\n\r\n        [EventSubscribe(\"StartOfSimulation\")]\r\n        private void OnSimulationCommencing(object sender, EventArgs e)\r\n        {\r\n            /*\r\n                co2 = [CO2]\r\ntav = tav + ([MaxtChange] + [MintChange]) / 2\r\n            \r\n            */\r\n        }\r\n    }\r\n}\r\n",
-                  "Parameters": [
-                    {
-                      "Key": "date1",
-                      "Value": "1-jan"
-                    },
-                    {
-                      "Key": "date2",
-                      "Value": "31-dec"
-                    },
-                    {
-                      "Key": "MaxtChange",
-                      "Value": "0"
-                    },
-                    {
-                      "Key": "MintChange",
-                      "Value": "0"
-                    },
-                    {
-                      "Key": "RainChange",
-                      "Value": "0"
-                    },
-                    {
-                      "Key": "RadnChange",
-                      "Value": "0"
-                    },
-                    {
-                      "Key": "CO2",
-                      "Value": "411"
-                    }
-                  ],
-                  "Name": "ClimateControl_2019",
-                  "ResourceName": null,
-                  "Children": [],
-                  "Enabled": true,
-                  "ReadOnly": false
-                },
-                {
-                  "$type": "Models.Manager, Models",
-                  "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    [System.Xml.Serialization.XmlInclude(typeof(Model))]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n\r\n        [Description(\"Enter window START date (dd-mmm) : \")]\r\n        public string date1 { get; set; }\r\n\r\n        [Description(\"Enter window END date (dd-mmm) : \")]\r\n        public string date2 { get; set; }\r\n\r\n        [Description(\"Change in maximum temperature (oC):\")]\r\n        public string MaxtChange { get; set; }\r\n\r\n        [Description(\"Change in minimum temperature (oC):\")]\r\n        public string MintChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily rainfall (%):\")]\r\n        public string RainChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily radiation (%):\")]\r\n        public string RadnChange { get; set; }\r\n\r\n        [Description(\"Atmospheric CO2 Concentration (ppm)\")]\r\n        public string CO2 { get; set; }\r\n\r\n        [EventSubscribe(\"StartOfSimulation\")]\r\n        private void OnSimulationCommencing(object sender, EventArgs e)\r\n        {\r\n            /*\r\n                co2 = [CO2]\r\ntav = tav + ([MaxtChange] + [MintChange]) / 2\r\n            \r\n            */\r\n        }\r\n    }\r\n}\r\n",
-                  "Parameters": [
-                    {
-                      "Key": "date1",
-                      "Value": "01-nov"
-                    },
-                    {
-                      "Key": "date2",
-                      "Value": "31-jan"
-                    },
-                    {
-                      "Key": "MaxtChange",
-                      "Value": "0"
-                    },
-                    {
-                      "Key": "MintChange",
-                      "Value": "0"
-                    },
-                    {
-                      "Key": "RainChange",
-                      "Value": "0"
-                    },
-                    {
-                      "Key": "RadnChange",
-                      "Value": "10"
-                    },
-                    {
-                      "Key": "CO2",
-                      "Value": "411"
-                    }
-                  ],
-                  "Name": "ClimateControl_winter_rad_incr_19",
                   "ResourceName": null,
                   "Children": [],
                   "Enabled": true,
@@ -471,12 +391,12 @@
                             250.0
                           ],
                           "InitialValues": [
-                            12.745,
-                            28.72,
+                            22.745,
+                            36.72,
                             4.62,
                             1.255
                           ],
-                          "InitialValuesUnits": 0,
+                          "InitialValuesUnits": 1,
                           "WaterTableConcentration": 0.0,
                           "D0": 0.0,
                           "Exco": null,
@@ -505,7 +425,7 @@
                             1.0,
                             1.0
                           ],
-                          "InitialValuesUnits": 0,
+                          "InitialValuesUnits": 1,
                           "WaterTableConcentration": 0.0,
                           "D0": 0.0,
                           "Exco": null,
@@ -564,7 +484,7 @@
                             0.309,
                             0.15
                           ],
-                          "CarbonUnits": 0,
+                          "CarbonUnits": 1,
                           "SoilCNRatio": [
                             12.5,
                             12.5,
@@ -572,14 +492,14 @@
                             12.5
                           ],
                           "FBiom": [
-                            0.05,
-                            0.055,
+                            0.06,
+                            0.07,
                             0.035,
                             0.01
                           ],
                           "FInert": [
-                            0.5,
-                            0.65,
+                            0.3,
+                            0.4,
                             1.0,
                             1.0
                           ],
@@ -608,8 +528,8 @@
                           "InitialValues": [
                             0.294,
                             0.293,
-                            0.293,
-                            0.227
+                            0.238,
+                            0.133
                           ],
                           "RelativeTo": "LL15",
                           "FilledFromTop": true,
@@ -679,7 +599,7 @@
                       "$type": "Models.Surface.SurfaceOrganicMatter, Models",
                       "SurfOM": [],
                       "Canopies": [],
-                      "InitialResidueName": "wheat",
+                      "InitialResidueName": "Wheat",
                       "InitialResidueType": "wheat",
                       "InitialResidueMass": 1000.0,
                       "InitialStandingFraction": 0.0,
@@ -711,7 +631,23 @@
                       "$type": "Models.PMF.Plant, Models",
                       "Name": "Wheat",
                       "ResourceName": "Wheat",
-                      "Children": [],
+                      "Children": [
+                        {
+                          "$type": "Models.PMF.Cultivar, Models",
+                          "Command": [
+                            "[Phenology].Phyllochron.BasePhyllochron.FixedValue = 50",
+                            "[Phenology].PhyllochronPpSensitivity.FixedValue = 3.5",
+                            "[Phenology].CAMP.FLNparams.VrnLN = 2.43",
+                            "[Grain].NumberFunction.GrainNumber.GrainsPerGramOfStem.FixedValue = 20.5",
+                            "[Grain].MaximumPotentialGrainSize.FixedValue = 0.047"
+                          ],
+                          "Name": "FSD2008",
+                          "ResourceName": null,
+                          "Children": [],
+                          "Enabled": true,
+                          "ReadOnly": false
+                        }
+                      ],
                       "Enabled": true,
                       "ReadOnly": false
                     },
@@ -736,6 +672,27 @@
                       ],
                       "GroupByVariableName": null,
                       "Name": "Report",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Report, Models",
+                      "VariableNames": [
+                        "[Clock].Today",
+                        "sum([NO3].kgha) as TotalNO3",
+                        "[Wheat].Leaf.LAI",
+                        "[Wheat].AboveGround.Wt*10 as Wheat.Biomass",
+                        "[Wheat].Grain.Wt.*10 as Wheat.Yield",
+                        "[Phenology].FloweringDAS",
+                        "[Phenology].MaturityDAS"
+                      ],
+                      "EventNames": [
+                        "[Clock].EndOfSimulation"
+                      ],
+                      "GroupByVariableName": null,
+                      "Name": "HarvestReport",
                       "ResourceName": null,
                       "Children": [],
                       "Enabled": true,
@@ -767,7 +724,7 @@
                         },
                         {
                           "Key": "CritNDepth",
-                          "Value": "50"
+                          "Value": "0"
                         },
                         {
                           "Key": "Depth",
@@ -789,12 +746,12 @@
                       "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nusing APSIM.Shared.Utilities;\r\nusing System.Linq;\r\nusing Models.Interfaces;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock clock;\r\n        [Link] Irrigation Irrigation;\r\n        \r\n        [Separator(\"A component to apply irrigation on one or more dates on every year of the simulation\")]\r\n\r\n        [Description(\"Apply fertiliser on the same day(s) each year? If no, then must include the year of appliaction below\")]\r\n        public bool EachYear { get; set; }\r\n\r\n        [Description(\"Dates for one or more fertiliser applications (dd-mmm or dd-mmm-yyyy) as a list with a comma between dates\")]\r\n        public string[] Dates { get; set; }\r\n\r\n        \r\n        [Description(\"Amount of irrigation to be applied (mm)\")] \r\n        public double Amount { get; set; }\r\n        \r\n        [Description(\"Depth in the soil to apply the  irrigation (mm)\")] \r\n        public double Depth { get; set; }\r\n        \r\n        [Description(\"Efficiency of irrigation (0-1)\")] \r\n        public double Efficiency { get; set; }\r\n        \r\n        [Description(\"Will the irrigation runoff?\")] \r\n        public bool WillRunoff { get; set; }\r\n        \r\n\r\n\r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            if (OnApplicationDate())\r\n            {\r\n                Irrigation.Apply(amount: Amount, depth: Depth, efficiency: Efficiency, willRunoff: WillRunoff);\r\n               \r\n            }\r\n        }\r\n\r\n        /// <summary>Checks if today's date is one of the specified fertiliser application dates.</summary>\r\n        private bool OnApplicationDate()\r\n        {\r\n            if (EachYear)\r\n                return Dates.Any(d => DateUtilities.DatesEqual(d, clock.Today));\r\n            \r\n            DateTime[] dates = Dates.Select(d => DateTime.ParseExact(d, \"d-MMM-yyyy\", null)).ToArray();\r\n            return dates.Any(d => SameDate(d, clock.Today));\r\n        }\r\n                private bool SameDate(DateTime d1, DateTime d2)\r\n        {\r\n            return d1.Year == d2.Year && d1.DayOfYear == d2.DayOfYear;\r\n        }\r\n        }\r\n        }\r\n        \r\n",
                       "Parameters": [
                         {
-                          "Key": "EachYear",
-                          "Value": "False"
+                          "Key": "Dates",
+                          "Value": "16-nov-2018, 07-dec-2018, 14-dec-2018, 04-jan-2019, 08-jan-2019, 04-feb-2019, 06-feb-2019, 02-mar-2019, 06-apr-2019"
                         },
                         {
-                          "Key": "Dates",
-                          "Value": "07-dec-2018, 04-jan-2019, 06-feb-2019, 06-apr-2019"
+                          "Key": "EachYear",
+                          "Value": "False"
                         },
                         {
                           "Key": "Amount",
@@ -829,11 +786,11 @@
                         },
                         {
                           "Key": "SowDate",
-                          "Value": "24-Jul"
+                          "Value": "16-nov"
                         },
                         {
                           "Key": "CultivarName",
-                          "Value": "Whistler"
+                          "Value": "FSD2008"
                         },
                         {
                           "Key": "SowingDepth",
@@ -849,6 +806,99 @@
                         }
                       ],
                       "Name": "SowingRule",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Manager, Models",
+                      "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    [System.Xml.Serialization.XmlInclude(typeof(Model))]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n\r\n        [Description(\"Enter window START date (dd-mmm) : \")]\r\n        public string date1 { get; set; }\r\n\r\n        [Description(\"Enter window END date (dd-mmm) : \")]\r\n        public string date2 { get; set; }\r\n\r\n        [Description(\"Change in maximum temperature (oC):\")]\r\n        public string MaxtChange { get; set; }\r\n\r\n        [Description(\"Change in minimum temperature (oC):\")]\r\n        public string MintChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily rainfall (%):\")]\r\n        public string RainChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily radiation (%):\")]\r\n        public string RadnChange { get; set; }\r\n\r\n        [Description(\"Atmospheric CO2 Concentration (ppm)\")]\r\n        public string CO2 { get; set; }\r\n\r\n        [EventSubscribe(\"StartOfSimulation\")]\r\n        private void OnSimulationCommencing(object sender, EventArgs e)\r\n        {\r\n            /*\r\n                co2 = [CO2]\r\ntav = tav + ([MaxtChange] + [MintChange]) / 2\r\n            \r\n            */\r\n        }\r\n    }\r\n}\r\n",
+                      "Parameters": [
+                        {
+                          "Key": "date1",
+                          "Value": "1-jan"
+                        },
+                        {
+                          "Key": "date2",
+                          "Value": "31-dec"
+                        },
+                        {
+                          "Key": "MaxtChange",
+                          "Value": "0"
+                        },
+                        {
+                          "Key": "MintChange",
+                          "Value": "0"
+                        },
+                        {
+                          "Key": "RainChange",
+                          "Value": "0"
+                        },
+                        {
+                          "Key": "RadnChange",
+                          "Value": "0"
+                        },
+                        {
+                          "Key": "CO2",
+                          "Value": "411"
+                        }
+                      ],
+                      "Name": "ClimateControl_2019",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Manager, Models",
+                      "Code": "using Models.Soils;\r\nusing System;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    [System.Xml.Serialization.XmlInclude(typeof(Model))]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n\r\n        [Description(\"Enter window START date (dd-mmm) : \")]\r\n        public string date1 { get; set; }\r\n\r\n        [Description(\"Enter window END date (dd-mmm) : \")]\r\n        public string date2 { get; set; }\r\n\r\n        [Description(\"Change in maximum temperature (oC):\")]\r\n        public string MaxtChange { get; set; }\r\n\r\n        [Description(\"Change in minimum temperature (oC):\")]\r\n        public string MintChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily rainfall (%):\")]\r\n        public string RainChange { get; set; }\r\n\r\n        [Description(\"Relative change in daily radiation (%):\")]\r\n        public string RadnChange { get; set; }\r\n\r\n        [Description(\"Atmospheric CO2 Concentration (ppm)\")]\r\n        public string CO2 { get; set; }\r\n\r\n        [EventSubscribe(\"StartOfSimulation\")]\r\n        private void OnSimulationCommencing(object sender, EventArgs e)\r\n        {\r\n            /*\r\n                co2 = [CO2]\r\ntav = tav + ([MaxtChange] + [MintChange]) / 2\r\n            \r\n            */\r\n        }\r\n    }\r\n}\r\n",
+                      "Parameters": [
+                        {
+                          "Key": "date1",
+                          "Value": "01-nov"
+                        },
+                        {
+                          "Key": "date2",
+                          "Value": "31-jan"
+                        },
+                        {
+                          "Key": "MaxtChange",
+                          "Value": "0"
+                        },
+                        {
+                          "Key": "MintChange",
+                          "Value": "0"
+                        },
+                        {
+                          "Key": "RainChange",
+                          "Value": "0"
+                        },
+                        {
+                          "Key": "RadnChange",
+                          "Value": "10"
+                        },
+                        {
+                          "Key": "CO2",
+                          "Value": "411"
+                        }
+                      ],
+                      "Name": "ClimateControl_winter_rad_incr_19",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    },
+                    {
+                      "$type": "Models.Manager, Models",
+                      "Code": "using APSIM.Shared.Utilities;\r\nusing Models.Utilities;\r\nusing Models.Soils;\r\nusing Models.PMF;\r\nusing Models.Core;\r\nusing System;\nusing Models.PMF.Phen;\r\n\r\nnamespace Models\r\n{\r\n    [Serializable] \r\n    public class Script : Model\r\n    {\r\n    [Link(Type = LinkType.Path, Path = \"[Wheat].Phenology\")]\n    private Phenology phenology;\n    \n        [Description(\"Crop\")]\r\n        public IPlant Crop { get; set; }\r\n        \r\n        [EventSubscribe(\"DoManagement\")]\r\n        private void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            \r\n            \n            if (phenology.CurrentPhase.Name==\"Ripening\")\n            {\r\n                Crop.Harvest();\r\n                Crop.EndCrop();\r\n            }\r\n        }\r\n    }\r\n}\r\n       \r\n",
+                      "Parameters": [
+                        {
+                          "Key": "Crop",
+                          "Value": "[Wheat]"
+                        }
+                      ],
+                      "Name": "Harvesting",
                       "ResourceName": null,
                       "Children": [],
                       "Enabled": true,
@@ -899,7 +949,7 @@
                   "AnnotationLocation": 0,
                   "DisabledSeries": [],
                   "LegendOutsideGraph": false,
-                  "Name": "LAI",
+                  "Name": "Biomass",
                   "ResourceName": null,
                   "Children": [
                     {
@@ -917,11 +967,77 @@
                       "LineThickness": 0,
                       "TableName": "Report",
                       "XFieldName": "Clock.Today",
-                      "YFieldName": "Wheat.Leaf.LAI",
+                      "YFieldName": "Wheat.AboveGround.Wt",
                       "X2FieldName": null,
                       "Y2FieldName": null,
                       "ShowInLegend": true,
-                      "IncludeSeriesNameInLegend": true,
+                      "IncludeSeriesNameInLegend": false,
+                      "Cumulative": false,
+                      "CumulativeX": false,
+                      "Filter": null,
+                      "Name": "Series",
+                      "ResourceName": null,
+                      "Children": [],
+                      "Enabled": true,
+                      "ReadOnly": false
+                    }
+                  ],
+                  "Enabled": true,
+                  "ReadOnly": false
+                },
+                {
+                  "$type": "Models.Graph, Models",
+                  "Caption": null,
+                  "Axis": [
+                    {
+                      "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                      "Title": null,
+                      "Position": 3,
+                      "Inverted": false,
+                      "CrossesAtZero": false,
+                      "Minimum": null,
+                      "Maximum": null,
+                      "Interval": null
+                    },
+                    {
+                      "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                      "Title": null,
+                      "Position": 0,
+                      "Inverted": false,
+                      "CrossesAtZero": false,
+                      "Minimum": null,
+                      "Maximum": null,
+                      "Interval": null
+                    }
+                  ],
+                  "LegendPosition": 0,
+                  "LegendOrientation": 0,
+                  "AnnotationLocation": 0,
+                  "DisabledSeries": [],
+                  "LegendOutsideGraph": false,
+                  "Name": "Yield",
+                  "ResourceName": null,
+                  "Children": [
+                    {
+                      "$type": "Models.Series, Models",
+                      "Type": 1,
+                      "XAxis": 3,
+                      "YAxis": 0,
+                      "ColourArgb": 0,
+                      "FactorToVaryColours": "N",
+                      "FactorToVaryMarkers": null,
+                      "FactorToVaryLines": "Sow",
+                      "Marker": 11,
+                      "MarkerSize": 0,
+                      "Line": 0,
+                      "LineThickness": 0,
+                      "TableName": "Report",
+                      "XFieldName": "Clock.Today",
+                      "YFieldName": "Wheat.Grain.Wt",
+                      "X2FieldName": null,
+                      "Y2FieldName": null,
+                      "ShowInLegend": true,
+                      "IncludeSeriesNameInLegend": false,
                       "Cumulative": false,
                       "CumulativeX": false,
                       "Filter": null,

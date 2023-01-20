@@ -1,4 +1,4 @@
-# CSIRO Digital Innovations Training 2022 <img align="right" src="resources/CSIRO.png">
+# CSIRO Digital Innovations Training 2022/2023 <img align="right" src="resources/CSIRO.png">
 
 
 ### Overview

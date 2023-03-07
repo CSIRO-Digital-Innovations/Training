@@ -1,6 +1,6 @@
 {
   "$type": "Models.Core.Simulations, Models",
-  "ExplorerWidth": 300,
+  "ExplorerWidth": 285,
   "Version": 159,
   "Name": "Simulations",
   "ResourceName": null,
@@ -99,7 +99,8 @@
                 "[Wheat].Grain.Total.Wt",
                 "[Wheat].Grain.Total.N",
                 "[Wheat].Total.Wt",
-                "[Fertiliser].NitrogenApplied"
+                "[Fertiliser].NitrogenApplied",
+                "[Irrigation].IrrigationApplied"
               ],
               "EventNames": [
                 "[Clock].EndOfDay"
@@ -115,6 +116,14 @@
               "$type": "Models.Fertiliser, Models",
               "Name": "Fertiliser",
               "ResourceName": "Fertiliser",
+              "Children": [],
+              "Enabled": true,
+              "ReadOnly": false
+            },
+            {
+              "$type": "Models.Irrigation, Models",
+              "Name": "Irrigation",
+              "ResourceName": null,
               "Children": [],
               "Enabled": true,
               "ReadOnly": false
@@ -421,15 +430,15 @@
                     300.0
                   ],
                   "InitialValues": [
-                    0.52100021807301,
-                    0.496723476938497,
-                    0.488437607673005,
-                    0.480296969355493,
-                    0.471583596524955,
-                    0.457070570557793,
-                    0.452331759845006
+                    0.521,
+                    0.497,
+                    0.488,
+                    0.48,
+                    0.472,
+                    0.457,
+                    0.452
                   ],
-                  "InitialPAWmm": 361.2454283127387,
+                  "InitialPAWmm": 361.07072287413695,
                   "RelativeTo": "LL15",
                   "FilledFromTop": false,
                   "Name": "Water",
@@ -662,14 +671,18 @@
             },
             {
               "$type": "Models.Manager, Models",
-              "Code": "using Models.Soils;\r\nusing System;\r\nusing System.Linq;\r\nusing Models.Core;\r\nusing Models.PMF;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n        [Link] Fertiliser Fertiliser;\r\n        \n        [Description(\"Threshold amount of NO3 below which fertiliser will be added (kg/ha)\")]\n\t\tpublic double NThreshold { get; set;}\n\t\t\n\t\t[Link(ByName=true)] private Solute NO3;\r\n        \r\n        [EventSubscribe(\"DoManagement\")]\n\t\tprivate void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            double NAmount = NThreshold - NO3.kgha.Sum();\n            Fertiliser.Apply(Amount: NAmount, Type: Fertiliser.Types.NO3N);\n        }\r\n    }\r\n}\r\n",
+              "Code": "using Models.Soils;\r\nusing System;\r\nusing System.Linq;\r\nusing Models.Core;\r\nusing Models.PMF;\nusing Models.WaterModel;\nusing Models;\r\nnamespace Models\r\n{\r\n    [Serializable]\r\n    public class Script : Model\r\n    {\r\n        [Link] Clock Clock;\r\n        [Link] Fertiliser Fertiliser;\r\n        \n        [Description(\"Threshold amount of NO3 below which fertiliser will be added (kg/ha)\")]\n\t\tpublic double NThreshold { get; set;}\n\t\t\n\t\t[Description(\"Threshold amount of water below which irrigation will be added (mm)\")]\n\t\tpublic double WaterThreshold { get; set;}\n\t\t\n\t\t[Link(ByName=true)] private Solute NO3;\n\t\t[Link(ByName=true)] private WaterBalance SoilWater;        \r\n        \n\t\t[Link(ByName=true)] private Irrigation Irrigation;\n        \n        [EventSubscribe(\"DoManagement\")]\n\t\tprivate void OnDoManagement(object sender, EventArgs e)\r\n        {\r\n            double NAmount = NThreshold - NO3.kgha.Sum();\n            if (NAmount > 0)\n            \tFertiliser.Apply(Amount: NAmount, Type: Fertiliser.Types.NO3N);\n            \n            double SWAmount = WaterThreshold - SoilWater.SWmm.Sum();\n\t\t\tif (SWAmount > 0)\n\t\t\t\tIrrigation.Apply(SWAmount);\n        }\r\n    }\r\n}",
               "Parameters": [
                 {
                   "Key": "NThreshold",
                   "Value": "50"
+                },
+                {
+                  "Key": "WaterThreshold",
+                  "Value": "700"
                 }
               ],
-              "Name": "TopUpN",
+              "Name": "TopUpNnW",
               "ResourceName": null,
               "Children": [],
               "Enabled": true,
@@ -727,7 +740,7 @@
               "LineThickness": 0,
               "TableName": "Daily",
               "XFieldName": "Clock.Today",
-              "YFieldName": "Fertiliser.NitrogenApplied",
+              "YFieldName": "Irrigation.IrrigationApplied",
               "X2FieldName": null,
               "Y2FieldName": null,
               "ShowInLegend": true,

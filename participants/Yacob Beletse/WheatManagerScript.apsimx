@@ -1,6 +1,6 @@
 {
   "$type": "Models.Core.Simulations, Models",
-  "ExplorerWidth": 606,
+  "ExplorerWidth": 502,
   "Version": 159,
   "Name": "Simulations",
   "ResourceName": null,
@@ -14,7 +14,7 @@
         {
           "$type": "Models.Clock, Models",
           "Start": "1900-01-01T00:00:00",
-          "End": "1900-12-31T00:00:00",
+          "End": "1910-12-31T00:00:00",
           "Name": "Clock",
           "ResourceName": null,
           "Children": [],
@@ -117,7 +117,8 @@
               "VariableNames": [
                 "[Clock].Today",
                 "[Soil].SoilWater.LeachNO3",
-                "sum([Soil].SoilWater.SWmm) as SoilWater "
+                "sum([Soil].SoilWater.SWmm) as SoilWater ",
+                "sum([WheatSoil].PAWmm) as totalPAWmm"
               ],
               "EventNames": [
                 "[Clock].EndOfDay"
@@ -447,13 +448,13 @@
                     300.0
                   ],
                   "InitialValues": [
-                    0.521,
-                    0.497,
-                    0.488,
-                    0.48,
-                    0.472,
-                    0.457,
-                    0.452
+                    0.339,
+                    0.323,
+                    0.342,
+                    0.34,
+                    0.338,
+                    0.333,
+                    0.332
                   ],
                   "RelativeTo": "LL15",
                   "FilledFromTop": false,
@@ -706,15 +707,15 @@
             },
             {
               "$type": "Models.Manager, Models",
-              "Code": "using Models.Interfaces;\nusing Models.Soils;\nusing APSIM.Shared.Utilities;\nusing Models.PMF;\nusing Models.Core;\nusing System;\nusing System.Linq;\nusing Models.Soils.Nutrients;\nusing Models.WaterModel;\nnamespace Models\n{\n\t[Serializable]\n\tpublic class Script : Model\n\t{\n\t\t\n\t\t[Link] private Fertiliser Fertiliser;\n\t\t[Link(ByName=true)] private Solute NO3;\n\t\t[Link] private Soil Soil;\n\t\t[Link] private Irrigation Irrigation;\n\t\t[Link(ByName=true)] private WaterBalance SoilWater;\n\t\t\n\t\t[Description(\"Threshold amount of NO3 below which fertiliser will be added (kg/ha)\")]\n\t\tpublic double NitrogenThreshold { get; set;}\n\t\t\n\t\t[Description(\"Threshold amount of water below which irrigation will be added (mm)\")]\n\t\tpublic double WaterThreshold { get; set;}\n\t\t\t\t\t\t\n\t\t[EventSubscribe(\"DoManagement\")]\n\t\tprivate void OnDoManagement(object sender, EventArgs e)\n\t\t{\n\t\tdouble NAmount = NitrogenThreshold - NO3.kgha.Sum();\n\t\t\n\t\tif (NAmount > 0)\n\t\t{\n\t\t\n\t\t// Apply is a method of the Fertiliser class that applies the specified fertilizer soil\n\t\t// \n\t\tFertiliser.Apply(Amount: NAmount, Type: Fertiliser.Types.NO3N);\n\t\t}\n\t\t\n\t\tdouble SWAmount = WaterThreshold - SoilWater.SWmm.Sum();\n\t\tif (SWAmount > 0)\n\t\t{\n\t\tIrrigation.Apply(SWAmount);\n\t\t}\n\t\t\n\t\t}\n\t}\n}",
+              "Code": "using Models.Interfaces;\nusing Models.Soils;\nusing APSIM.Shared.Utilities;\nusing Models.PMF;\nusing Models.Core;\nusing System;\nusing System.Linq;\nusing Models.Soils.Nutrients;\nusing Models.WaterModel;\nnamespace Models\n{\n\t[Serializable]\n\tpublic class Script : Model\n\t{\n\t\t[Link] private Clock Clock;\n\t\t[Link] private Fertiliser Fertiliser;\n\t\t[Link(ByName=true)] private Solute NO3;\n\t\t[Link] private Soil Soil;\n\t\t[Link] private Irrigation Irrigation;\n\t\t[Link(ByName=true)] private WaterBalance SoilWater;\n\t\t[Link(ByName=true)] private SoilCrop WheatSoil;\n\n\n\t\t[Description(\"Threshold amount of NO3 below which fertiliser will be added (kg/ha)\")]\n\t\tpublic double NitrogenThreshold { get; set;}\n\t\t\n\t\t[Description(\"Threshold amount of water below which irrigation will be added (mm)\")]\n\t\tpublic double WaterThreshold { get; set;}\n\t\t\t\t\t\t\n\t\t[EventSubscribe(\"DoManagement\")]\n\t\tprivate void OnDoManagement(object sender, EventArgs e)\n\t\t{\n\t\t\tdouble NAmount = NitrogenThreshold - NO3.kgha.Sum();\n\t\t\t\n\t\t\tif (NAmount > 0)\n\t\t\t// Apply is a method of the Fertiliser class that applies the specified fertilizer soil\n\t\t\tFertiliser.Apply(Amount: NAmount, Type: Fertiliser.Types.NO3N);\n\t\t\t\t\t\n\t\t\tdouble SWAmount = WaterThreshold - WheatSoil.PAWmm.Sum();\n\t\t\tif (SWAmount > 0)\n\t\t\tIrrigation.Apply(SWAmount);\n\t\t\n\t\t}\n\t}\n}",
               "Parameters": [
                 {
                   "Key": "NitrogenThreshold",
-                  "Value": "1500"
+                  "Value": "75"
                 },
                 {
                   "Key": "WaterThreshold",
-                  "Value": "200"
+                  "Value": "150"
                 }
               ],
               "Name": "NAndWaterTopup",
@@ -905,11 +906,11 @@
               "MarkerSize": 0,
               "Line": 0,
               "LineThickness": 0,
-              "TableName": "Report",
+              "TableName": "ReportSoil",
               "XFieldName": "Clock.Today",
-              "YFieldName": "SoilWater",
-              "X2FieldName": "",
-              "Y2FieldName": "",
+              "YFieldName": "totalPAWmm",
+              "X2FieldName": null,
+              "Y2FieldName": null,
               "ShowInLegend": true,
               "IncludeSeriesNameInLegend": false,
               "Cumulative": false,

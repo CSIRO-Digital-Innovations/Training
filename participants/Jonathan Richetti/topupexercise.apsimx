@@ -642,7 +642,7 @@
                   "Value": "50"
                 }
               ],
-              "Name": "Fertilise at sowing",
+              "Name": "TopUpN",
               "ResourceName": null,
               "Children": [],
               "Enabled": true,
@@ -680,7 +680,7 @@
           "LegendPosition": 0,
           "LegendOrientation": 0,
           "AnnotationLocation": 0,
-          "DisabledSeries": null,
+          "DisabledSeries": [],
           "LegendOutsideGraph": false,
           "Name": "Wheat Yield Time Series",
           "ResourceName": null,
@@ -690,7 +690,7 @@
               "Type": 1,
               "XAxis": 3,
               "YAxis": 0,
-              "ColourArgb": -16777216,
+              "ColourArgb": -11094807,
               "FactorToVaryColours": null,
               "FactorToVaryMarkers": null,
               "FactorToVaryLines": null,

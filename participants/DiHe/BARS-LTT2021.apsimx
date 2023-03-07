@@ -1,6 +1,6 @@
 {
   "$type": "Models.Core.Simulations, Models",
-  "ExplorerWidth": 300,
+  "ExplorerWidth": 285,
   "Version": 159,
   "Name": "Simulations",
   "ResourceName": null,
@@ -114,6 +114,14 @@
               "$type": "Models.Fertiliser, Models",
               "Name": "Fertiliser",
               "ResourceName": "Fertiliser",
+              "Children": [],
+              "Enabled": true,
+              "ReadOnly": false
+            },
+            {
+              "$type": "Models.Irrigation, Models",
+              "Name": "Irrigation",
+              "ResourceName": null,
               "Children": [],
               "Enabled": true,
               "ReadOnly": false
@@ -928,16 +936,16 @@
                     220.0
                   ],
                   "InitialValues": [
-                    0.251,
-                    0.251,
-                    0.251,
-                    0.251,
-                    0.251,
-                    0.267,
-                    0.254,
-                    0.251,
-                    0.291,
-                    0.322
+                    0.184,
+                    0.184,
+                    0.184,
+                    0.184,
+                    0.184,
+                    0.184,
+                    0.185,
+                    0.194,
+                    0.195,
+                    0.195
                   ],
                   "RelativeTo": "LL15",
                   "FilledFromTop": false,
@@ -1039,14 +1047,18 @@
             },
             {
               "$type": "Models.Manager, Models",
-              "Code": "using Models.Soils;\nusing APSIM.Shared.Utilities;\nusing Models.Soils.Nutrients;\nusing Models.PMF;\nusing Models.Core;\nusing System;\nusing System.Linq;\nusing Models.Soils.Nutrients;\nnamespace Models\n{\n[Serializable]\npublic class Script : Model\n{\n[Link] Clock Clock;\n[Link] Fertiliser Fertiliser;\n[Link(ByName=true)] private Solute NO3;\n[Description(\"Threshold amount of NO3 below which fertiliser will be added (kg/ha)\")]\npublic double NThreshold { get; set;}\n[EventSubscribe(\"DoManagement\")]\nprivate void OnDoManagement(object sender, EventArgs e)\n{\ndouble NAmount = NThreshold - NO3.kgha.Sum();\nFertiliser.Apply(Amount: NAmount, Type: Fertiliser.Types.NO3N);\n}\n}\n}",
+              "Code": "using Models.Soils;\nusing APSIM.Shared.Utilities;\nusing Models.Soils.Nutrients;\nusing Models.PMF;\nusing Models.Core;\nusing System;\nusing System.Linq;\nusing Models.Soils.Nutrients;\nusing Models;\n\nnamespace Models\n{\n     [Serializable]\n      public class Script : Model\n{\n  [Link] Clock Clock;\n  [Link] Fertiliser Fertiliser;\n  [Link(ByName=true)] private Solute NO3;\n  [Link(ByName=true)] private SoilCrop WheatSoil;\n  [Link(ByName=true)] private Irrigation Irrigation;\n  \n  [Description(\"Threshold amount of NO3 below which fertiliser will be added (kg/ha)\")]\n  public double NThreshold { get; set;}\n  \n  [Description(\"Threshold amount of water below which irrigation will be added (mm)\")]\n  public double WaterThreshold { get; set;}\n  \n  [EventSubscribe(\"DoManagement\")]\n  private void OnDoManagement(object sender, EventArgs e)\n  {\n   double NAmount = NThreshold - NO3.kgha.Sum();\n   Fertiliser.Apply(Amount: NAmount, Type: Fertiliser.Types.NO3N);\n   \n   double SWAmount = WaterThreshold - WheatSoil.PAWmm.Sum();\n   if (SWAmount > 0)\n   Irrigation.Apply(SWAmount);\n  }\n}\n}",
               "Parameters": [
                 {
                   "Key": "NThreshold",
                   "Value": "50"
+                },
+                {
+                  "Key": "WaterThreshold",
+                  "Value": "130"
                 }
               ],
-              "Name": "Ntopup",
+              "Name": "NandWatertopup",
               "ResourceName": null,
               "Children": [],
               "Enabled": true,
@@ -1079,7 +1091,8 @@
                 "[Wheat].Grain.Number",
                 "[Wheat].Leaf.Fn",
                 "[Wheat].Leaf.Fw",
-                "[Fertiliser].NitrogenApplied"
+                "[Fertiliser].NitrogenApplied",
+                "[Irrigation].IrrigationApplied"
               ],
               "EventNames": [
                 "[Clock].DoActualPlantGrowth"
@@ -1121,7 +1134,7 @@
               "AnnotationLocation": 0,
               "DisabledSeries": [],
               "LegendOutsideGraph": false,
-              "Name": "Graph",
+              "Name": "NtopupN",
               "ResourceName": null,
               "Children": [
                 {
@@ -1140,6 +1153,72 @@
                   "TableName": "Report",
                   "XFieldName": "Date",
                   "YFieldName": "Fertiliser.NitrogenApplied",
+                  "X2FieldName": null,
+                  "Y2FieldName": null,
+                  "ShowInLegend": false,
+                  "IncludeSeriesNameInLegend": false,
+                  "Cumulative": false,
+                  "CumulativeX": false,
+                  "Filter": null,
+                  "Name": "Series",
+                  "ResourceName": null,
+                  "Children": [],
+                  "Enabled": true,
+                  "ReadOnly": false
+                }
+              ],
+              "Enabled": true,
+              "ReadOnly": false
+            },
+            {
+              "$type": "Models.Graph, Models",
+              "Caption": null,
+              "Axis": [
+                {
+                  "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                  "Title": null,
+                  "Position": 3,
+                  "Inverted": false,
+                  "CrossesAtZero": false,
+                  "Minimum": null,
+                  "Maximum": null,
+                  "Interval": null
+                },
+                {
+                  "$type": "APSIM.Shared.Graphing.Axis, APSIM.Shared",
+                  "Title": null,
+                  "Position": 0,
+                  "Inverted": false,
+                  "CrossesAtZero": false,
+                  "Minimum": null,
+                  "Maximum": null,
+                  "Interval": null
+                }
+              ],
+              "LegendPosition": 0,
+              "LegendOrientation": 0,
+              "AnnotationLocation": 0,
+              "DisabledSeries": [],
+              "LegendOutsideGraph": false,
+              "Name": "Watertopup",
+              "ResourceName": null,
+              "Children": [
+                {
+                  "$type": "Models.Series, Models",
+                  "Type": 1,
+                  "XAxis": 3,
+                  "YAxis": 0,
+                  "ColourArgb": 0,
+                  "FactorToVaryColours": null,
+                  "FactorToVaryMarkers": null,
+                  "FactorToVaryLines": null,
+                  "Marker": 0,
+                  "MarkerSize": 0,
+                  "Line": 0,
+                  "LineThickness": 0,
+                  "TableName": "Report",
+                  "XFieldName": "Date",
+                  "YFieldName": "Irrigation.IrrigationApplied",
                   "X2FieldName": null,
                   "Y2FieldName": null,
                   "ShowInLegend": false,

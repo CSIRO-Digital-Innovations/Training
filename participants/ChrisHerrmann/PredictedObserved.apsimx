@@ -1,7 +1,7 @@
 {
   "$type": "Models.Core.Simulations, Models",
   "ExplorerWidth": 285,
-  "Version": 156,
+  "Version": 159,
   "Name": "Simulations",
   "ResourceName": null,
   "Children": [
@@ -275,7 +275,7 @@
                   "Parameters": [
                     {
                       "Key": "InitialRootDepth",
-                      "Value": "10"
+                      "Value": "12"
                     },
                     {
                       "Key": "Cultivar",
@@ -774,7 +774,8 @@
                         0.25,
                         0.25
                       ],
-                      "RelativeTo": null,
+                      "InitialPAWmm": 324.0,
+                      "RelativeTo": "LL15",
                       "FilledFromTop": false,
                       "Name": "Water",
                       "ResourceName": null,

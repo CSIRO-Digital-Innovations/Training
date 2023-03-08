@@ -1,6 +1,6 @@
 {
   "$type": "Models.Core.Simulations, Models",
-  "ExplorerWidth": 285,
+  "ExplorerWidth": 300,
   "Version": 159,
   "Name": "Simulations",
   "ResourceName": null,
@@ -13,7 +13,7 @@
       "Children": [
         {
           "$type": "Models.Clock, Models",
-          "Start": "1900-01-01T00:00:00",
+          "Start": "2000-01-01T00:00:00",
           "End": "2000-12-31T00:00:00",
           "Name": "Clock",
           "ResourceName": null,
@@ -741,7 +741,7 @@
               "LineThickness": 0,
               "TableName": "Daily",
               "XFieldName": "Clock.Today",
-              "YFieldName": "Irrigation.IrrigationApplied",
+              "YFieldName": "Wheat.AboveGround.Wt",
               "X2FieldName": null,
               "Y2FieldName": null,
               "ShowInLegend": true,
@@ -750,6 +750,35 @@
               "CumulativeX": false,
               "Filter": null,
               "Name": "Wheat Yield",
+              "ResourceName": null,
+              "Children": [],
+              "Enabled": true,
+              "ReadOnly": false
+            },
+            {
+              "$type": "Models.Series, Models",
+              "Type": 1,
+              "XAxis": 3,
+              "YAxis": 0,
+              "ColourArgb": -11094807,
+              "FactorToVaryColours": null,
+              "FactorToVaryMarkers": null,
+              "FactorToVaryLines": null,
+              "Marker": 0,
+              "MarkerSize": 0,
+              "Line": 4,
+              "LineThickness": 0,
+              "TableName": "Sheet1",
+              "XFieldName": "Clock.Today",
+              "YFieldName": "Wheat.AboveGround.Wt",
+              "X2FieldName": null,
+              "Y2FieldName": null,
+              "ShowInLegend": false,
+              "IncludeSeriesNameInLegend": false,
+              "Cumulative": false,
+              "CumulativeX": false,
+              "Filter": null,
+              "Name": "Series",
               "ResourceName": null,
               "Children": [],
               "Enabled": true,
@@ -769,7 +798,22 @@
       "CustomFileName": null,
       "Name": "DataStore",
       "ResourceName": null,
-      "Children": [],
+      "Children": [
+        {
+          "$type": "Models.PostSimulationTools.ExcelInput, Models",
+          "FileNames": [
+            "dummydata.xlsx"
+          ],
+          "SheetNames": [
+            "Sheet1"
+          ],
+          "Name": "ExcelInput",
+          "ResourceName": null,
+          "Children": [],
+          "Enabled": true,
+          "ReadOnly": false
+        }
+      ],
       "Enabled": true,
       "ReadOnly": false
     }
